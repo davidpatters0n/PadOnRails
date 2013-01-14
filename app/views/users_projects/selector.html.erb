@@ -1,0 +1,27 @@
+<%= javascript_include_tag 'ui.multiselect', 'ui.multiselect-en' %>
+<%= stylesheet_link_tag 'ui.multiselect' %>
+
+<h1>Configure My Projects</h1>
+
+<%= form_tag '/users_projects/selector' %>
+<select id="projectselector" class="multiselect" multiple="multiple" name="projects[]">
+	<% @projects.each do |project| %>
+	  <option value="<%= project.id %>" 
+	  	<% @users_projects.each do |userproj| %>
+	  	  <% if userproj.project_id == project.id %>
+	  	    selected="selected"
+	  	  <% end %>
+	    <% end %>
+	    >
+	  	
+	  	<%= project.project_number %> - <%= project.project_name %></option>
+	<% end %>
+</select>
+<input type="submit" value="Submit changes"/>
+</form>
+
+<script>
+  $(document).ready( function() {
+  	$(".multiselect").multiselect();
+  } );
+</script>

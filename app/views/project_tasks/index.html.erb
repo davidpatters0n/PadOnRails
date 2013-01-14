@@ -1,0 +1,29 @@
+<h1 class="head">Listing Project Tasks</h1>
+
+<table>
+  <tr>
+  	<th>ProjectTask ID</th>
+    <th>Project</th>
+    <th>Project Type</th>
+    <th>Task name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @project_tasks.each do |project_task| %>
+  <tr>
+  	<td><%= project_task.id %></td>
+    <td><%= project_task.project_id %></td>
+    <td><%= project_task.taskType %></td>
+    <td><%= project_task.task_name %></td>
+    <td><%= link_to 'Show', project_task %></td>
+    <td><%= link_to 'Edit', edit_project_task_path(project_task) %></td>
+    <td><%= link_to 'Destroy', project_task, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Project task', new_project_task_path %>

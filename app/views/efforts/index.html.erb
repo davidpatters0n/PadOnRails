@@ -1,0 +1,26 @@
+<h1>Listing efforts</h1>
+<table>
+
+	<tr>
+		<th>Effort ID</th>
+		<th>Project Number</th>
+		<th>Project Name</th>
+		<th>Project task</th>
+		<th>User</th>
+		<th>Week commencing</th>
+		<th>Hours</th>
+		<th></th>
+	</tr>
+	<% @efforts.each do |effort| %>
+	<tr>
+		<td><%= effort.id%></td>
+		<td><%= effort.project_task.project.project_number %></td>
+		<td><%= effort.project_task.project.project_name %></td>
+		<td><%= effort.project_task.task_name %></td>
+		<td><%= effort.user.full_name %></td>
+		<td><%= effort.week_commencing %></td>
+		<td><%= effort.hours %></td>
+		<td><%= link_to 'Show', effort %></td>
+	</tr>
+	<% end %>
+</table>

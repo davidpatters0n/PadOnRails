@@ -1,0 +1,5 @@
+$('#tasks_tb').html('');
+
+<% @project.project_tasks.each do |task| %>
+  $('#tasks_tb').append('<tr><td><%= task.task_name %><td><%= link_to image_tag("icons/add.png"), addtimesheettask_path( task.id, @user ), :remote => true %>');
+<% end %>

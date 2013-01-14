@@ -1,0 +1,46 @@
+<%= form_for(@opportunity) do |f| %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.select :status, options_for_select(["Business Won", "Quoted Waiting", "Upcoming Prospects", "Lost", "No Bid", "Decision", "Archive Tenders"]), :prompt => "Select a Status"%>
+  </div>
+
+  <div class="field">
+    <b>SBU/Stream</b><br />
+    <%= f.text_field :sbustream %>
+  </div>
+
+  <div class="field">
+    <%= f.label :value %><br />
+    <%= f.text_field :value %>
+  </div>
+
+  <div class="field">
+    <b>DAI Owner</b><br />
+	<%= f.select(:daiowner, User.all.select { |user| user.has_role?(:BusinessManager) }.collect {|user| [user.full_name, user.id]}.sort{|a, b| a[0] <=> b[0]}, :prompt => "Select a Business Manager") %>
+  </div>
+  
+  <div class="field">
+	<b>Company Name</b><br />
+	<%= f.select(:company_id, Company.all.collect {|company| [company.name, company.id]}.sort{|a, b| a[0] <=> b[0]}, :prompt => "Select a Company") %>
+  </div>
+  
+  <div class="field">
+    <b>Estimated Decision Date</b><br />
+    <%= f.date_select :estdescisiondate, :order => [:day, :month, :year] %>
+  </div>
+
+  <div class="field">
+    <%= f.label :contacts %><br />
+    <%= f.text_field :contacts %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

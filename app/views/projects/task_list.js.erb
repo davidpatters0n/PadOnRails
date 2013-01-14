@@ -1,0 +1,5 @@
+$('#task_list').html('');
+
+<% @project.project_tasks.each do |task| %>
+  $('#task_list').append('<ul><%= task.task_name %>');
+<% end %>

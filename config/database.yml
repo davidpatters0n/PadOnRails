@@ -1,0 +1,22 @@
+development:
+  adapter: mysql2
+  database: PadOnRails_development
+  username: root
+  password: "1234"
+  host: 127.0.0.1
+
+test:
+  adapter: mysql2
+  database: PadOnRails_test
+  username: root
+  password: "1234"
+  host: 127.0.0.1
+  
+
+production:
+ development:
+  adapter: mysql2
+  database: PadOnRails_production
+  username: root
+  password: "1234"
+  host: 127.0.0.1

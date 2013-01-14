@@ -1,0 +1,73 @@
+.dataTables_wrapper {
+    clear: both;
+    min-height: 302px;
+    position: relative;
+}
+
+.dataTables_length {
+    float: left;
+    width: 40%;
+}
+.dataTables_filter {
+    float: right;
+    text-align: right;
+    width: 50%;
+}
+.dataTables_info {
+    float: left;
+    width: 60%;
+}
+.dataTables_paginate {
+    float: right;
+    text-align: right;
+    width: 44px;
+}
+.paginate_disabled_previous, .paginate_enabled_previous, .paginate_disabled_next, .paginate_enabled_next {
+    float: left;
+    height: 19px;
+    margin-left: 3px;
+    width: 19px;
+}
+.paginate_disabled_previous {
+    background-image: url("../images/back_disabled.jpg");
+}
+.paginate_enabled_previous {
+    background-image: url("../images/back_enabled.jpg");
+}
+.paginate_disabled_next {
+    background-image: url("../images/forward_disabled.jpg");
+}
+.paginate_enabled_next {
+    background-image: url("../images/forward_enabled.jpg");
+}
+
+.clear {
+    clear: both;
+}
+.dataTables_empty {
+    text-align: center;
+}
+.example_alt_pagination div.dataTables_info {
+    width: 40%;
+}
+.paging_full_numbers {
+    height: 22px;
+    line-height: 22px;
+    width: 400px;
+}
+.paging_full_numbers span.paginate_button, .paging_full_numbers span.paginate_active {
+    border: 1px solid #AAAAAA;
+    border-radius: 5px 5px 5px 5px;
+    cursor: pointer;
+    margin: 0 3px;
+    padding: 2px 5px;
+}
+.paging_full_numbers span.paginate_button {
+    background-color: #DDDDDD;
+}
+.paging_full_numbers span.paginate_button:hover {
+    background-color: #CCCCCC;
+}
+.paging_full_numbers span.paginate_active {
+    background-color: #99B3FF;
+}

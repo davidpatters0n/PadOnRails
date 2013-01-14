@@ -1,0 +1,6 @@
+<tr>
+	<td><%= f.hidden_field :project_id, :value => @project.id ,:disabled => true %>
+	    <%= f.select :taskType, ['Pre-Sales','Project','Support','Fault Fixing','Out Of Hours'] %></td>
+	<td><%= f.text_field :task_name %></td>
+	<td><a href="#" onclick="javascript:$(this).closest('tr').remove();">Remove</a>
+</tr>

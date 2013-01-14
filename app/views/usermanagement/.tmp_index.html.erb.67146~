@@ -1,0 +1,46 @@
+<%= javascript_include_tag 'jquery-1.6.2.min', 'jquery-ui-1.8.14.custom.min'%>
+<%= javascript_include_tag 'jquery.dataTables.min', 'datatable', 'jquery.dataTables.columnFilter'%>
+<%= stylesheet_link_tag 'demo_table', 'jquery-ui-1.8.4.custom' %> 
+<div class="head">
+	<h1>User Management</h1>
+</div>
+<%= button_to 'Create a user', create_path %><br />
+<div>
+<table border="2" width="100%" id='users' class='datatable'>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Username</th>
+			<th>Full Name</th>
+			<th>Groups</th>
+			<th><center>Show</center></th>
+			<th><center>Edit</center></th>
+			<th><center>Delete</center></th>
+		</tr>
+	</thead>
+	<tbody>
+  	<% @users.each do |user| %>
+  		<tr>
+  			<td><%= user.id %></td>
+  			<td><%= user.username %></td>
+  			<td><%= user.full_name %></td>
+  			<td><%= user.roles.collect(&:name).to_sentence(:last_word_connector => ' and ') %></td>
+  			<td><center><%= link_to image_tag("icons/user.png", :alt => "Matflo"), user, :title => "Show #{user.username}" %></center></td>
+  			<td><center><%= link_to image_tag("icons/user_edit.png", :alt => "Matflo"), edit_user_path(user), :title => "Edit #{user.username}" %></center></td>
+  			<td><center><%= link_to image_tag("icons/user_delete.png", :alt => "Matflo"), user, :method => :delete, :confirm => "Are you sure?", :title => "Delete #{user.username}" %></center></td>
+  		</tr>
+  		
+    <%- end -%>
+     <tfoot>
+		<tr>
+			<th></th>
+			<th>Username</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</tfoot>
+  </tbody>
+</table>
+</div>
+<br />
+<%= button_to 'Back', :back %>

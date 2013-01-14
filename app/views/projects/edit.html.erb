@@ -1,0 +1,67 @@
+
+<%= form_for @project, :validate => true do |f|%>
+<%= render 'shared/error_messages_project' %>
+		
+	<p>
+		<%= f.label :project_number %><br />
+		<%= f.text_field :project_number, :disabled => :true %>
+	</p>
+	
+	<p>
+		<%= f.label :project_name %><br />
+  		<%= f.text_field :project_name %>
+  	</p>
+	
+  	<p>
+		<%= f.label :project_manager %><br />
+		<%= f.select(:manager_user_id, User.all.select { |user| user.has_role?(:ProjectManager) }.collect {|user| [user.full_name, user.id]}.sort{|a, b| a[0] <=> b[0]}, :prompt => "Select a Project Manager") %>
+
+  	</p>
+  	
+  	<p>
+  		<%= f.label :account_manager %><br />
+  		<%= f.select(:account_manager, User.all.collect {|user| [user.full_name, user.id]}.sort{|a, b| a[0] <=> b[0]}, :prompt => "Select a Account Manager") %>
+	</p>
+
+	<fieldset style="width:200px">
+		<legend><%= @project.project_number%> <%= @project.project_name %>'s Tasks</legend>
+		<table id="myTable">
+			<tr>
+				<th>Type</th>
+				<th>Task</th>
+				<th></th>
+			</tr>
+			<% @array = Array.new %>
+			<%= f.fields_for :project_tasks do |g| %>
+			<tr>
+				<td><%= g.hidden_field :project_id, :value => @project.id %>
+				    <%= g.select :taskType, ['Pre-Sales','Project','Support','Fault Fixing','Out Of Hours']%></td>
+				<td><%= g.text_field :task_name %></td>
+				<td id="delete_<%= g.object.id %>"><%= link_to 'Delete', project_task_path( g.object ), :confirm => 'Are you want to delete this task?', :method => :delete %></td>
+				<% @array.push(g.object.id)%>
+			</tr>
+			<% end %>
+			<tr>
+				<th colspan="3" id="seperate" class="seperate"><center><%= link_to_add_fields "Create More", f, :project_tasks, "'#seperate'" %></center></th>
+			</tr>
+		</table>
+	</fieldset>
+	<p><%= f.submit "Update", :method => :put %></p>
+<% end %>
+<br />
+<%= button_to 'Back', projects_path, :method => :get %>
+
+<%@eff = @effort.map(&:project_task_id) & @array %>
+
+
+<script>
+$(function() {
+	<% while @eff.length > 0 %>
+	<% @pop = @eff.pop %>
+			$('#delete_<%= @pop %>').hide();
+	<% end %>
+});
+</script>
+
+
+		

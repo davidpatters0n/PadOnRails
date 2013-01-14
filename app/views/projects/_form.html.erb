@@ -1,0 +1,45 @@
+<%= javascript_include_tag 'jquery-1.6.2.min' %>
+<%= javascript_include_tag 'jquery-ui-1.8.14.custom.min' %>
+<%= javascript_include_tag 'jquery_ujs', 'application' %>
+<%= javascript_include_tag "rails.validations" %>  
+<%= form_for @project, :validate => true do |f|%>
+		
+	<p>
+		<%= f.label :project_number %><br />
+		<%= f.text_field :project_number %>
+	</p>
+	
+	<p>
+		<%= f.label :project_name %><br />
+  		<%= f.text_field :project_name %>
+  	</p>
+  	
+	<p>
+		<%= f.label :project_manager_user_id %><br />
+		<%= f.select(:manager_user_id, User.all.select { |user| user.has_role?(:ProjectManager) }.collect {|user| [user.full_name, user.id]}.sort{|a, b| a[0] <=> b[0]}, :prompt => "Select a Project Manager") %>
+
+  	</p>
+  	
+  	<p>
+  		<%= f.label :account_manager %><br />
+  		<%= f.select(:account_manager, User.all.collect {|user| [user.full_name, user.id]}.sort{|a, b| a[0] <=> b[0]}, :prompt => "Select a Account Manager") %>
+	</p>
+	
+	<fieldset style="width:500px;">
+		<legend>Default Tasks made with this project</legend>
+		<ol>
+			<li>Pre-Sales</li>
+			<li>Project</li>
+			<li>Support</li>
+			<li>Fault Fixing</li>
+			<li>Out-Of-Hours</li>
+		</ol>
+		<br />
+		<p><mark>Custom tasks are required to be input by the Project Manager</mark></p>
+	</fieldset>
+	
+	
+	
+	<p><%= f.submit "Submit" %></p>
+<% end %>
+

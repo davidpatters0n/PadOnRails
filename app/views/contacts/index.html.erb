@@ -1,0 +1,35 @@
+<%= javascript_include_tag 'jquery-1.6.2.min', 'jquery-ui-1.8.14.custom.min'%>
+<%= javascript_include_tag 'jquery.dataTables.min', 'datatable', 'application'%>
+<%= stylesheet_link_tag 'demo_table', 'jquery-ui-1.8.4.custom' %> 
+<%= link_to 'New Contact', new_contact_path %>
+<h1>Listing contacts</h1>
+
+<div>
+<table border="2" width = 100% id='contacts' class='datatable'>
+	<thead>
+  <tr>
+    <th width = 100px>Name</th>
+    <th>Position</th>
+    <th>Email</th>
+    <th>Telephone</th>
+    <th>Source</th>
+    <th>Company</th>
+  </tr>
+</thead>
+<tbody>
+<% @contacts.each do |contact| %>
+  <tr>
+    <td><%= link_to contact.name, contact %></td>
+    <td><%= contact.position %></td>
+    <td><%= contact.email %></td>
+    <td><%= contact.telephone %></td>
+    <td><%= contact.source %></td>
+    <td><%= contact.company_id %></td>
+    <!--<td><%= link_to 'Show', contact %></td>-->
+    <!--<td><%= link_to 'Edit', edit_contact_path(contact) %></td>-->
+    <!--<td><%= link_to 'Destroy', contact, :confirm => 'Are you sure?', :method => :delete %></td>-->
+  </tr>
+<% end %>
+</tbody>
+</table>
+</div>

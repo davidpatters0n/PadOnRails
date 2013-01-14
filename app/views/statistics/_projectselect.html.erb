@@ -1,0 +1,28 @@
+<% if current_user.has_role? :Admin %>
+  <SELECT id="list" onchange="selectGraph()">
+    <OPTION <% if current_page?(statistics_path) %> selected <% end %> VALUE="A">Project Hours
+    <% @pro.each do |project| %>
+      <option <% if project.id.to_s == params[:id] %>selected<% end %>
+      	 value="<%= project.id %>"><%= project.project_name %> (<%= project.project_number %>) </option>
+    <% end %>
+  </SELECT>
+
+<% elsif current_user.has_role? :ProjectManager %>
+  <SELECT id="list" onchange="selectGraph()">
+    <OPTION <% if current_page?(statistics_path) %> selected <% end %> VALUE="A">Project Hours
+    <% @pro.each do |project| %>
+      <option <% if project.id == params[:id] %> selected <% end %>
+      	 value="<%= project.id %>"><%= project.project_name %> (<%= project.project_number %>)</option>
+    <% end %>
+  </SELECT>
+<% end %>
+
+<script>
+function selectGraph()
+{
+  if( $("#list").val() == "A" )
+    window.location = '<%= statistics_path %>';
+  else
+    window.location = '/statistics/' + $("#list").val(); 
+};
+</script>

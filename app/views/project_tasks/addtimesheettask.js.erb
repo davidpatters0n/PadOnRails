@@ -1,0 +1,5 @@
+if( $('#effort_<%= @project_task.id %>').length == 0 )
+  $('#task_list').prepend('<tr><td><%= @project_task.project.project_number %> <%= @project_task.project.project_name %> - <%= @project_task.task_name %></td>' +
+                         '<td><%= text_field :effort, :hours, :name => 'effort_' + @project_task.id.to_s, :id => 'effort_' + @project_task.id.to_s, :size => 20 %></td>' +
+                         '<td><%= link_to image_tag('icons/delete.png'), deletetimesheettask_path(current_user.id,:wc,@project_task.id), :confirm => "Are you sure?", :remote => :true, :rel => "nofollow" %></td></tr>' );
+						 $('#effort_<%= @project_task.id.to_s %>').focus();

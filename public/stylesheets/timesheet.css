@@ -1,0 +1,43 @@
+.leftcol
+{
+    float: left;
+}
+
+.rightcol
+{
+    float: right;
+}
+
+.borderbox
+{
+    border: 1px solid #ddd;
+    margin: 5px;
+    padding: 3px;
+}
+
+.datepicker
+{
+    width: 240px;
+}
+
+.projectselector
+{
+    width: 240px;
+}
+
+.recenttasks
+{
+    width: 240px;
+}
+
+.effortlist
+{
+    margin-left: 260px;
+    margin-right: 260px;
+}
+
+.fullwidthtable
+{
+    width: 100%;
+}
+

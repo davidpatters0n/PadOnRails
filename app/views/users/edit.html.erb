@@ -1,0 +1,49 @@
+<%= stylesheet_link_tag 'custom', :media => 'screen' %>
+<%= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
+<%= stylesheet_link_tag 'blueprint/print',  :media => 'print' %>
+<%= javascript_include_tag "jquery", "hidden" %>
+<%= javascript_include_tag 'jquery-1.6.2.min' %>
+<%= javascript_include_tag 'jquery-ui-1.8.14.custom.min' %>
+<%= javascript_include_tag 'jquery_ujs', 'application' %>
+<%= javascript_include_tag "rails.validations" %>
+<%= form_for @user, :validate => true do |f|%>
+  <div class="field">
+    <%= f.label :username %><br />
+    <%= f.text_field :username, :disabled => 'disabled' %><br />
+
+    <%= f.label :full_name %><br />
+    <%= f.text_field :full_name%><br />
+
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <% if current_user.has_role? :Admin %>
+  <div style="width:150px"><b>Group</b>
+      <table border="1" width="100%">
+      <% for role in @roles %>
+      <tr>
+            <td><%= role.name %></td>
+            <td><%= check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role) %></td>
+      <tr>
+      <% end %>
+      </table>
+      </div>
+<% else %>
+<% end %>
+  <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+</div>
+  <div class="hidden">
+  	<fieldset>
+	  	<%= f.label :password %><br />
+	  	<%= f.text_field :current_password, :value => @current_password %>
+	  
+	  	<%= f.label :password_confirmation %><br />
+	  	<%= f.text_field :current_password, :value => @current_password %>
+	 
+		<%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+	  	<%= f.password_field :current_password, :value => @current_password %>
+	 </fieldset>
+  </div>
+<% end %>

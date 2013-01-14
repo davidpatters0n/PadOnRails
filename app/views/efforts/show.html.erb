@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Project task:</b>
+  <%= @effort.project_task_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @effort.user_id %>
+</p>
+
+<p>
+  <b>Week commencing:</b>
+  <%= @effort.week_commencing %>
+</p>
+
+<p>
+  <b>Hours:</b>
+  <%= @effort.hours %>
+</p>
+
+
+<%= link_to 'Edit', edit_effort_path(@effort) %> |
+<%= link_to 'Back', efforts_path %>

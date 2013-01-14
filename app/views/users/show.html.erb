@@ -1,0 +1,116 @@
+<%= javascript_include_tag 'jquery.min'%>
+<%= stylesheet_link_tag 'jquery.lightbox' %>
+<%= javascript_include_tag 'jquery.lightbox' %>
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery('.lightbox').lightbox();
+	});
+</script>
+<div class="manage-account">
+	<div class="account clearfix">
+		<div class="profile clearfix">
+			<h2><b>Profile</b></h2>
+			<div class="infos">
+				<img class="img" alt="" src="http://uncover.com/images/default-user-avatar.png">
+				<p></p>
+			</div>
+		</div>
+		<div class="settings">
+			<h2><b>Personal Settings</b></h2>
+			<%= form_for(@user) do |f| %>
+			<div class="field">
+				<b>Username:</b>
+				<%= @user.username %>
+			</div>
+			<div class="field">
+				<b>Full Name:</b>
+				<%= @user.full_name %>
+			</div>
+			<div class="field">
+				<b>Email:</b>
+				<%= @user.email %>
+			</div>
+			<div class="field">
+				<b>Sign in count:</b>
+				<%= @user.sign_in_count %>
+			</div>
+			<% if @user.created_at.nil? %>
+			<% else%>
+			<div class="field">
+				<b>Created on:</b>
+				<%= @user.created_at.strftime("%B %d, %Y at %I:%M%p") %>
+			</div>
+			<% end %>
+			<% if @user.last_sign_in_at.nil? %>
+			<div class="field">
+				<b>Last seen:</b>
+				Never
+			</div>
+			<% else %>
+			<div class="field">
+				<b>Last seen:</b>
+				<%= @user.last_sign_in_at.strftime("%B %d, %Y at %I:%M%p") %>
+			</div>
+			<%= link_to 'Change password', change_password_path(@user) + "?lightbox[width]=400&lightbox[height]=270#edit", :class => "lightbox" %>
+			<% end %>
+			<% end %>
+			<% if current_user.has_role? :Admin %>
+			<%= link_to 'Edit Your Information', edit_user_path(@user) + "?lightbox[width]=220&lightbox[height]=410#edit", :class => "lightbox" %>
+			<% else %>
+			<%= link_to 'Edit Your Information', edit_user_path(@user) + "?lightbox[width]=320&lightbox[height]=250#edit", :class => "lightbox" %>
+			<% end %>
+		</div>
+	</div>
+	<div class="manage-account">
+	<div class="account clearfix">
+		<div class="profile clearfix">
+		<h2><b>
+			<% if @user == current_user %>
+			  My Projects
+			<% else %>
+			  <%= @user.full_name %>'s Projects
+			<% end %>
+		</b></h2>
+			<% @users_projects.each do |users_project| %>
+				<% if !users_project.user.nil? && current_user.full_name == users_project.user.full_name %>
+				<%= users_project.project.project_name %> <br />
+				<% end %>
+			<% end %>
+		</div>
+		<% if current_user.has_role?(:BusinessManager) %>
+		<div class="settings">
+		<h2><b>Latest 5 Comments</b></h2>
+		<% @latestcomments = Comment.where(:commenter => current_user.full_name).order('created_at DESC').take(5) %>
+				<table border="2" width=800px id='comments' class='datatable'>
+				<thead>
+					<tr>
+						<th>Message</th>
+						<th>Contact</th>
+						<th>Company</th>
+						<th>When?</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @latestcomments.each do |comment| %>
+					<tr>
+						<td><%= raw comment.body %></td>
+						<% if comment.contact_id.nil? %>
+						<td></td>
+						<% else %>
+						<td><%= link_to comment.contact.name, comment.contact %></td>
+						<% end %>
+						<% if comment.company_id.nil? %>
+						<td></td>
+						<% else %>
+						<td><%= link_to comment.company.name, comment.company %></td>
+						<% end %>
+						<td><%= comment.created_at.to_formatted_s(:long_ordinal) %></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+		<% end %>
+	</div>
+	</div>
+</div>

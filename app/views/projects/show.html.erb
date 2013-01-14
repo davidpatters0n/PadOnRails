@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Project number:</b>
+  <%= @project.project_number %>
+</p>
+
+<p>
+  <b>Project name:</b>
+  <%= @project.project_name %>
+</p>
+
+<p>
+  <b>Project Manager:</b>
+  <%= @project.user ? @project.user.full_name : ""  %>
+</p>
+
+<p>
+	<b>Account Manager:</b>
+	<%= @project.account_user ? @project.account_user.full_name : "" %>
+</p>
+<br />
+
+<p><u>Tasks</u></p>
+<ol>
+<% for project_task in @project.project_tasks %>
+  <li>
+    <%= project_task.task_name %>
+  </li>
+<% end %>
+</ol>
+
+<%= link_to 'View Project Statistics', statistics_project_path(@project) %>
+<br/>
+
+<br/>
+
+<%= link_to 'Back', projects_path %>
+
+

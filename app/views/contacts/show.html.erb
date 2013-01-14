@@ -1,0 +1,88 @@
+<%= include_tiny_mce_if_needed %>
+<%= javascript_include_tag "hidden" %>
+
+<div class="splitcontentleft border topborder leftborder bottomborder">
+<b><u>Contact</u></b><br />
+<p> 
+  <b>Name:</b>
+  <%= @contact.name %>
+</p>
+<p>
+  <b>Position:</b>
+  <%= @contact.position %>
+</p>
+<p>
+  <b>Email:</b>
+  <%= link_to @contact.email, "mailto:" + @contact.email %>
+</p>
+<p>
+  <b>Telephone:</b>
+  <%= @contact.telephone %>
+</p>
+<p>
+  <b>Source:</b>
+  <%= @contact.source %>
+</p>
+<p>
+	<b>Company:</b>
+	<%= link_to @contact.company.name, @contact.company %>
+</p>
+</div>
+<%if @contact.comments.empty? %>
+<div class="splitcontentleft topborder leftborder border bottomborder">
+<b>There are no comments, add one below.</b>
+</div>
+<% else %>
+<div class="splitcontentleft topborder leftborder border bottomborder">
+<b><%= pluralize(@contact.comments.count, "Comment") %></b>
+<table border="2" width=800px id='comments' class='datatable'>
+	<thead>
+  <tr>
+    <th>Name</th>
+    <th width=500px>Comment</th>
+    <th width=200px>Posted</th>
+    <th>Attachments</th>
+    <th><center>Delete?</center></th>
+  </tr>
+  </thead>
+<tbody>
+<% @contact.comments.each do |comment| %>
+  <tr>
+    <td><%= comment.commenter %></td>
+    <td><%=raw comment.body %></td>
+    <td><%= comment.created_at.to_formatted_s(:long_ordinal) %>
+    	
+    </td>
+    <% if comment.file.blank? %>
+    <td><b>None</b></td>
+    <% else %>
+    <td><%= link_to comment.file_identifier, comment.file_url %> <%= comment.file.size %> Bytes</td>
+    <% end %>
+    <td><center><%= link_to image_tag("collapse.png", :alt => "Delete", :height => "20px"), [comment.contact, comment], :confirm => 'Are you sure?', :method => :delete %></center></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+</div>
+<% end %>
+<div class="clear topborder leftborder border bottomborder">
+<h2>Add a comment:</h2>
+<%= form_for([@contact, @contact.comments.build], :html => {:multipart => true}) do |f| %>
+  <div class="hidden">
+    Your name:<br />
+    <%= f.text_field :commenter, :value => current_user.full_name, :readonly => "readonly" %>
+  </div>
+  <div class="field">
+    Comment:<br />
+    <%= f.text_area :body, :class => "mceEditor" %>
+  </div>
+  <div class="field">
+  	<%= f.file_field :file %>  
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+</div>
+<%= link_to 'Edit', edit_contact_path(@contact) %> |
+<%= link_to 'Back', contacts_path %>

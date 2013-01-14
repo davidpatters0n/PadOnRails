@@ -1,0 +1,116 @@
+<%= include_tiny_mce_if_needed %>
+<%= javascript_include_tag "hidden" %>
+
+<div class="splitcontentleft border topborder leftborder bottomborder">
+<b><u>Company</u></b><br />
+  <b>Name:</b>
+  <%= @company.name %>
+</p>
+<p>
+  <b>Address:</b>
+  <%= @company.address %>
+</p>
+<p>
+  <b>Telephone:</b>
+  <%= @company.telephone %>
+</p>
+<p>
+  <b>Email:</b>
+  <%= link_to @company.email, "mailto:" + @company.email %>
+</p>
+</div>
+<%if @company.contacts.empty? %>
+<div class="splitcontentleft topborder leftborder border bottomborder">
+There are no contacts with this company, <b><a href="<%= crm_path %>#ui-tabs-2">Click here to create one.</a></b>
+</div>
+<% else %>
+<div class="splitcontentleft topborder leftborder border bottomborder">
+<b><u>Contacts</u></b><br />
+<table width=800px id='companies2' class='datatable'>
+	<thead>
+  <tr>
+    <th>Name</th>
+    <th>Position</th>
+    <th>Email</th>
+    <th>Telephone</th>
+    <th>Source</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  </thead>
+<tbody>
+<% @company.contacts.each do |contact| %>
+  <tr>
+    <td><%= link_to contact.name, contact %></td>
+    <td><%= contact.position %></td>
+    <td><%= link_to contact.email, "mailto:" + contact.email%></td>
+    <td><%= contact.telephone%></td>
+    <td><%= link_to contact.source, contact.source%></td>
+    <td><center><%= link_to image_tag("icons/user_edit.png", :alt => "Edit"), edit_contact_path(contact) %></center></td>
+    <td><center><%= link_to image_tag("icons/user_delete.png", :alt => "Delete"), contact, :confirm => 'Are you sure?', :method => :delete %></center></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+</div>
+<% end%>
+<%if @company.comments.empty? %>
+<div class="clear topborder leftborder border">
+<b>There are no comments, add one below.</b>
+</div>
+<% else %>
+<div class="clear topborder leftborder border ">
+<b><u><%= pluralize(@company.comments.count, "Comment") %></u></b>
+<table border="2" width=800px id='comments' class='datatable'>
+	<thead>
+  <tr>
+    <th width=100px>Name</th>
+    <th width=500px>Comment</th>
+    <th width=250px>Posted</th>
+    <th width=200px>Attachments</th>
+    <th width=50px><center>Delete?</center></th>
+  </tr>
+  </thead>
+<tbody>
+<% @company.comments.each do |comment| %>
+  <tr>
+    <td><%= comment.commenter %></td>
+    <td><%=raw comment.body %></td>
+    <td><%= comment.created_at.to_formatted_s(:long_ordinal) %></td>
+    <% if comment.file.blank? %>
+    <td><b>None</b></td>
+    <% else %>
+    <td><%= link_to comment.file_identifier, comment.file_url %></td>
+    <% end %>
+    <td><center><%= link_to image_tag("collapse.png", :alt => "Delete", :height => "20px"), [comment.company, comment], :confirm => 'Are you sure?', :method => :delete %></center></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+</div>
+<% end %>
+<div class="leftborder border bottomborder">
+<br />
+<br />
+</div>
+<div class="leftborder bottomborder border topborder">
+<h2>Add a comment</h2>
+<%= form_for([@company, @company.comments.build], :html => {:multipart => true}) do |f| %>
+  <div class="hidden">
+    Name:<br />
+    <%= f.text_field :commenter, :value => current_user.full_name, :readonly => "readonly" %>
+  </div>
+  <div class="field">
+    Comment:<br />
+    <%= f.text_area :body, :class => "mceEditor" %>
+  </div>
+  <div class="field">
+  	<%= f.file_field :file %>  
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+</div>
+<%= link_to 'Edit', edit_company_path(@company) %> |
+<%= link_to 'Back', companies_path %>

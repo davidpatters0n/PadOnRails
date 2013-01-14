@@ -1,0 +1,81 @@
+<%= javascript_include_tag 'jquery-1.6.2.min', 'jquery-ui-1.8.14.custom.min'%>
+<%= javascript_include_tag 'jquery.dataTables.min', 'datatable', 'jquery.dataTables.columnFilter', 'tabs'%>
+<%= stylesheet_link_tag 'demo_table', 'tabs-ui' %> 
+<script>
+	$(function() {
+		$("#accordion").accordion({active: false, collapsible: true, autoHeight: false});
+	});
+</script>
+
+<div id="tabs">
+	<ul>
+		<li><a href="#tabs-1">Project</a></li>
+		<% if current_user.has_role? :ProjectManager %>
+		<li><a href="">Create a Project</a></li>
+		<% else %>
+		<li><a href="new_project">Create a Project</a></li>
+		<% end %>
+		<li><a href="#tabs-2">View hours</a></li>
+	</ul>
+	<div id="tabs-1">
+	<div>
+	<table border="2" width="100%" id='projectlist' class='datatable'>
+		<thead>
+			<tr>
+				<th>Project number</th>
+				<th>Project name</th>
+				<th>Project Manager</th>
+				<th>Account Manager</th>
+				<th><center>Show</center></th>
+				<th><center>Edit</center></th>
+				<th><center>Delete</center></th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @projects.each do |project| %>
+			  <tr>
+				<td><%= project.project_number %></td>
+				<td><%= project.project_name %></td>
+				<td><%= project.user ? project.user.full_name : "" %></td>
+				<td><%= project.account_user ? project.account_user.full_name : "" %></td>
+				<td><center><%= link_to image_tag("icons/user.png"), project %></center></td>
+				<td><center><%= link_to image_tag("icons/user_edit.png"), edit_project_path(project) %></center></td>
+				<td><center><%= link_to image_tag("icons/user_delete.png"), project, :confirm => 'Are you sure?', :method => :delete %></center></td>
+			  </tr>
+			<% end %>
+		</tbody>
+	</table>
+	</div>
+	</div>
+	<br />
+	
+	<div id="tabs-2">
+		<h1>Your Projects</h1>
+		Click project to see users assigned and there hours spent.
+		
+		<div id="accordion">
+			<% @pro.each do |pro| %>
+				<h3><a href="#"><%= pro.id %> <%= pro.project_number %> <%= pro.project_name %></a></h3>
+				<% records = Effort.joins( :project_task, :user ).
+		            where( 'project_tasks.project_id' => pro.id ).
+		            group( :full_name).
+		            order( :taskType ).
+		            sum( :hours ) %>
+				<div>
+					<table>
+						<tr>
+							<th>User</th>
+							<th>Hours Spent</th>
+						</tr>
+						<% records.each do | (full_name, taskType ), hours | %>
+							<tr>
+								<td><%= full_name %></td>
+								<td><%= hours %></td>
+							</tr>
+						<% end %>
+					</table>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div> 

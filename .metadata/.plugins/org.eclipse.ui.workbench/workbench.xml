@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbench progressCount="38" version="2.0">
+<workbenchAdvisor/>
+<window height="1001" width="1588" x="1750" y="588">
+<fastViewData fastViewLocation="1024"/>
+<perspectiveBar>
+<itemSize x="160"/>
+</perspectiveBar>
+<coolbarLayout locked="0">
+<coolItem id="group.file" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="132" y="30"/>
+<coolItem id="additions" itemType="typeGroupMarker"/>
+<coolItem id="com.aptana.ui.globalActionSet" itemType="typeToolBarContribution" x="152" y="30"/>
+<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="140" y="30"/>
+<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="48" y="30"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="96" y="30"/>
+<coolItem id="group.nav" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="84" y="30"/>
+<coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="com.aptana.editor.ruby" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="com.aptana.editor.erb.html" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="group.help" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
+</coolbarLayout>
+<page aggregateWorkingSetId="Aggregate for window 1315574370881" focus="true" label="Workspace - Web">
+<editors>
+<editorArea activeWorkbook="DefaultEditorWorkbook">
+<info part="DefaultEditorWorkbook">
+<folder appearance="1" expanded="2">
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+</presentation>
+</folder>
+</info>
+</editorArea>
+<editor id="com.aptana.editor.erb.html" name="index.html.erb" partName="index.html.erb" title="index.html.erb" tooltip="/home/ahmet/PadOnRails/app/views/statistics/index.html.erb" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" uri="file:/home/ahmet/PadOnRails/app/views/statistics/index.html.erb"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2493" selectionTopPixel="1591"/>
+</editor>
+<editor activePart="true" focus="true" id="com.aptana.editor.ruby" name="routes.rb" partName="routes.rb" title="routes.rb" tooltip="/home/ahmet/PadOnRails/config/routes.rb" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" uri="file:/home/ahmet/PadOnRails/config/routes.rb"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1702" selectionTopPixel="697"/>
+</editor>
+<editor id="com.aptana.editor.ruby" name="statistics_controller.rb" partName="statistics_controller.rb" title="statistics_controller.rb" tooltip="/home/ahmet/PadOnRails/app/controllers/statistics_controller.rb" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" uri="file:/home/ahmet/PadOnRails/app/controllers/statistics_controller.rb"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="856" selectionTopPixel="188"/>
+</editor>
+</editors>
+<views>
+<view id="org.eclipse.ui.navigator.ProjectExplorer" partName="Project Explorer">
+<viewState CommonNavigator.LINKING_ENABLED="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0"/>
+</view>
+<view id="com.aptana.terminal.views.terminal" partName="ahmet@Ubuntu: ~/PadOnRails">
+<viewState>
+<title>ahmet@Ubuntu: ~/PadOnRails</title>
+<workingDirectory>/home/ahmet</workingDirectory>
+</viewState>
+</view>
+<view id="com.aptana.terminal.views.terminal:1324e918e3c" partName="ahmet@Ubuntu: ~">
+<viewState>
+<title>ahmet@Ubuntu: ~</title>
+<workingDirectory>/home/ahmet</workingDirectory>
+</viewState>
+</view>
+<view id="com.aptana.explorer.view" partName="App Explorer">
+<viewState CommonNavigator.LINKING_ENABLED="0" GitChangedFilesFilterEnabled=""/>
+</view>
+</views>
+<perspectives activePart="org.eclipse.ui.navigator.ProjectExplorer" activePerspective="com.aptana.ui.WebPerspective">
+<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="com.aptana.ui.internal.WebPerspectiveFactory" id="com.aptana.ui.WebPerspective" label="Web"/>
+<alwaysOnActionSet id="com.aptana.browser.actionSet"/>
+<alwaysOnActionSet id="com.aptana.ruby.debug.ui.RubyDebugActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
+<alwaysOnActionSet id="com.aptana.editor.common.presentation"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
+<alwaysOnActionSet id="com.aptana.js.debug.ui.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.presentation"/>
+<alwaysOnActionSet id="com.aptana.ui.globalActionSet"/>
+<alwaysOnActionSet id="com.aptana.terminal.actionSet"/>
+<show_view_action id="com.aptana.browser.views.webbrowser"/>
+<show_view_action id="com.aptana.explorer.view"/>
+<show_view_action id="org.eclipse.ui.navigator.ProjectExplorer"/>
+<show_view_action id="com.aptana.ui.io.remoteview"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="com.aptana.samples.ui.SamplesView"/>
+<show_view_action id="com.aptana.terminal.views.terminal"/>
+<show_view_action id="org.eclipse.ui.console.ConsoleView"/>
+<show_view_action id="org.eclipse.pde.runtime.LogView"/>
+<show_view_action id="org.eclipse.ui.views.ProblemView"/>
+<show_view_action id="org.eclipse.ui.views.TaskList"/>
+<new_wizard_action id="com.aptana.ui.wizards.NewWebProject"/>
+<new_wizard_action id="com.aptana.ruby.core.ui.rubyProjectWizard"/>
+<new_wizard_action id="com.aptana.ui.wizards.new.file"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.folder"/>
+<new_wizard_action id="org.eclipse.ui.editors.wizards.UntitledTextFileWizard"/>
+<new_wizard_action id="org.radrails.rails.ui.projectWizard"/>
+<perspective_action id="org.eclipse.debug.ui.DebugPerspective"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="com.aptana.explorer.view"/>
+<view id="org.eclipse.ui.navigator.ProjectExplorer"/>
+<view id="com.aptana.terminal.views.terminal"/>
+<view id="com.aptana.terminal.views.terminal:1324e918e3c"/>
+<fastViewBars/>
+<layout>
+<mainWindow>
+<info folder="true" part="left">
+<folder activePageID="org.eclipse.ui.navigator.ProjectExplorer" appearance="2" expanded="2">
+<page content="com.aptana.explorer.view" label="App Explorer"/>
+<page content="org.eclipse.ui.navigator.ProjectExplorer" label="Project Explorer"/>
+<page content="com.aptana.ui.io.remoteview" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="stickyFolderRight" ratio="0.7495784" ratioLeft="889" ratioRight="297" relationship="2" relative="left">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.26887193" ratioLeft="317" ratioRight="862" relationship="2" relative="left"/>
+<info folder="true" part="terminalArea" ratio="0.7491409" ratioLeft="654" ratioRight="219" relationship="4" relative="org.eclipse.ui.editorss">
+<folder activePageID="com.aptana.terminal.views.terminal:1324e918e3c" appearance="2" expanded="2">
+<page content="com.aptana.terminal.views.terminal" label="ahmet@Ubuntu: ~/PadOnRails"/>
+<page content="com.aptana.terminal.views.terminal:1324e918e3c" label="ahmet@Ubuntu: ~"/>
+<page content="org.eclipse.ui.console.ConsoleView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.ProblemView" label="LabelNotFound"/>
+<page content="org.eclipse.pde.runtime.LogView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.TaskList" label="LabelNotFound"/>
+<page content="com.aptana.terminal.views.terminal:1324ec93969" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@1a18ee2" ratio="0.7491409" ratioLeft="654" ratioRight="219" relationship="4" relative="left">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ContentOutline" label="LabelNotFound"/>
+<page content="com.aptana.samples.ui.SamplesView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+</folder>
+</info>
+</mainWindow>
+</layout>
+</perspective>
+</perspectives>
+<workingSets/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.erb.html" uri="file:/home/ahmet/PadOnRails/app/views/statistics/index.html.erb"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" uri="file:/home/ahmet/PadOnRails/app/controllers/statistics_controller.rb"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.erb.html" uri="file:/home/ahmet/PadOnRails/app/views/projects/index.html.erb"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" uri="file:/home/ahmet/PadOnRails/config/routes.rb"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" uri="file:/home/ahmet/PadOnRails/app/models/project_task.rb"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" uri="file:/home/ahmet/PadOnRails/app/models/effort.rb"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.erb.html" uri="file:/home/ahmet/Desktop/Aptana%20Studio%203/app/views/ruby/1.9.1/gems/actionpack-3.0.9/lib/action_dispatch/middleware/templates/rescues/_trace.erb"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.erb.html" uri="file:/home/ahmet/PadOnRails/app/views/dashboard/index.html.erb"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.erb.html" uri="file:/home/ahmet/PadOnRails/app/views/timesheet/index.html.erb"/>
+</editors>
+<item historyLabel="project_task.rb" index="4">
+<position/>
+</item>
+<item historyLabel="statistics_controller.rb" index="1">
+<position info="not_deleted" x="711" y="0"/>
+</item>
+<item historyLabel="effort.rb" index="5">
+<position/>
+</item>
+<item historyLabel="statistics_controller.rb" index="1">
+<position info="not_deleted" x="711" y="0"/>
+</item>
+<item historyLabel="project_task.rb" index="4">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="effort.rb" index="5">
+<position/>
+</item>
+<item historyLabel="_trace.erb" index="6">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="effort.rb" index="5">
+<position/>
+</item>
+<item historyLabel="project_task.rb" index="4">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="routes.rb" index="3">
+<position info="not_deleted" x="2335" y="0"/>
+</item>
+<item historyLabel="project_task.rb" index="4">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="index.html.erb | projects" index="2">
+<position info="not_deleted" x="2175" y="0"/>
+</item>
+<item historyLabel="statistics_controller.rb" index="1">
+<position info="not_deleted" x="711" y="0"/>
+</item>
+<item historyLabel="index.html.erb" index="0">
+<position info="not_deleted" x="82" y="0"/>
+</item>
+<item historyLabel="statistics_controller.rb" index="1">
+<position info="not_deleted" x="815" y="0"/>
+</item>
+<item historyLabel="effort.rb" index="5">
+<position/>
+</item>
+<item historyLabel="statistics_controller.rb" index="1">
+<position/>
+</item>
+<item historyLabel="effort.rb" index="5">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="project_task.rb" index="4">
+<position info="not_deleted" x="327" y="0"/>
+</item>
+<item historyLabel="routes.rb" index="3">
+<position info="not_deleted" x="2335" y="0"/>
+</item>
+<item historyLabel="index.html.erb" index="0">
+<position info="not_deleted" x="82" y="0"/>
+</item>
+<item historyLabel="statistics_controller.rb" index="1">
+<position info="not_deleted" x="711" y="0"/>
+</item>
+<item historyLabel="index.html.erb | projects" index="2">
+<position info="not_deleted" x="2175" y="0"/>
+</item>
+<item historyLabel="routes.rb" index="3">
+<position info="not_deleted" x="2335" y="0"/>
+</item>
+<item historyLabel="index.html.erb" index="0">
+<position info="not_deleted" x="55" y="0"/>
+</item>
+<item historyLabel="statistics_controller.rb" index="1">
+<position info="not_deleted" x="201" y="0"/>
+</item>
+<item historyLabel="index.html.erb" index="0">
+<position info="not_deleted" x="2514" y="0"/>
+</item>
+<item historyLabel="statistics_controller.rb" index="1">
+<position/>
+</item>
+<item historyLabel="index.html.erb | projects" index="2">
+<position info="not_deleted" x="2175" y="0"/>
+</item>
+<item historyLabel="statistics_controller.rb" index="1">
+<position/>
+</item>
+<item historyLabel="routes.rb" index="3">
+<position info="not_deleted" x="2335" y="0"/>
+</item>
+<item historyLabel="index.html.erb" index="0">
+<position info="not_deleted" x="2927" y="0"/>
+</item>
+<item historyLabel="project_task.rb" index="4">
+<position info="not_deleted" x="327" y="0"/>
+</item>
+<item historyLabel="index.html.erb" index="0">
+<position info="not_deleted" x="2927" y="0"/>
+</item>
+<item historyLabel="routes.rb" index="3">
+<position info="not_deleted" x="2358" y="0"/>
+</item>
+<item historyLabel="statistics_controller.rb" index="1">
+<position info="not_deleted" x="815" y="0"/>
+</item>
+<item historyLabel="index.html.erb | dashboard" index="7">
+<position info="not_deleted" x="2317" y="0"/>
+</item>
+<item historyLabel="index.html.erb | timesheet" index="8">
+<position info="not_deleted" x="7098" y="0"/>
+</item>
+<item historyLabel="index.html.erb | dashboard" index="7">
+<position info="not_deleted" x="2317" y="0"/>
+</item>
+<item historyLabel="statistics_controller.rb" index="1">
+<position info="not_deleted" x="893" y="0"/>
+</item>
+<item historyLabel="routes.rb" index="3">
+<position info="not_deleted" x="2358" y="0"/>
+</item>
+<item historyLabel="statistics_controller.rb" index="1">
+<position info="not_deleted" x="485" y="0"/>
+</item>
+<item historyLabel="index.html.erb" index="0">
+<position info="not_deleted" x="2493" y="0"/>
+</item>
+<item historyLabel="routes.rb" index="3">
+<position info="not_deleted" x="2331" y="0"/>
+</item>
+<item historyLabel="index.html.erb" index="0">
+<position info="not_deleted" x="2493" y="0"/>
+</item>
+<item historyLabel="routes.rb" index="3">
+<position info="not_deleted" x="1334" y="0"/>
+</item>
+<item historyLabel="statistics_controller.rb" index="1">
+<position info="not_deleted" x="485" y="0"/>
+</item>
+<item historyLabel="routes.rb" index="3">
+<position info="not_deleted" x="1334" y="0"/>
+</item>
+<item historyLabel="statistics_controller.rb" index="1">
+<position info="not_deleted" x="856" y="0"/>
+</item>
+<item active="true" historyLabel="routes.rb" index="3">
+<position info="not_deleted" x="1334" y="0"/>
+</item>
+</navigationHistory>
+<input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
+</page>
+<workbenchWindowAdvisor/>
+<actionBarAdvisor/>
+<trimLayout>
+<trimArea IMemento.internal.id="128">
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
+</trimArea>
+<trimArea IMemento.internal.id="1024">
+<trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
+<trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
+</trimArea>
+</trimLayout>
+</window>
+<mruList>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" name="statistics_controller.rb" tooltip="/home/ahmet/PadOnRails/app/controllers/statistics_controller.rb">
+<persistable uri="file:/home/ahmet/PadOnRails/app/controllers/statistics_controller.rb"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" name="routes.rb" tooltip="/home/ahmet/PadOnRails/config/routes.rb">
+<persistable uri="file:/home/ahmet/PadOnRails/config/routes.rb"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.erb.html" name="index.html.erb" tooltip="/home/ahmet/PadOnRails/app/views/timesheet/index.html.erb">
+<persistable uri="file:/home/ahmet/PadOnRails/app/views/timesheet/index.html.erb"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.erb.html" name="index.html.erb" tooltip="/home/ahmet/PadOnRails/app/views/dashboard/index.html.erb">
+<persistable uri="file:/home/ahmet/PadOnRails/app/views/dashboard/index.html.erb"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" name="effort.rb" tooltip="/home/ahmet/PadOnRails/app/models/effort.rb">
+<persistable uri="file:/home/ahmet/PadOnRails/app/models/effort.rb"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.erb.html" name="_trace.erb" tooltip="/home/ahmet/Desktop/Aptana Studio 3/app/views/ruby/1.9.1/gems/actionpack-3.0.9/lib/action_dispatch/middleware/templates/rescues/_trace.erb">
+<persistable uri="file:/home/ahmet/Desktop/Aptana%20Studio%203/app/views/ruby/1.9.1/gems/actionpack-3.0.9/lib/action_dispatch/middleware/templates/rescues/_trace.erb"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" name="project_task.rb" tooltip="/home/ahmet/PadOnRails/app/models/project_task.rb">
+<persistable uri="file:/home/ahmet/PadOnRails/app/models/project_task.rb"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" name="project.rb" tooltip="/home/ahmet/PadOnRails/app/models/project.rb">
+<persistable uri="file:/home/ahmet/PadOnRails/app/models/project.rb"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" name="users_controller.rb" tooltip="/home/ahmet/PadOnRails/app/controllers/users_controller.rb">
+<persistable uri="file:/home/ahmet/PadOnRails/app/controllers/users_controller.rb"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.erb.html" name="index.html.erb" tooltip="/home/ahmet/PadOnRails/app/views/projects/index.html.erb">
+<persistable uri="file:/home/ahmet/PadOnRails/app/views/projects/index.html.erb"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.ruby" name="seeds.rb" tooltip="/home/ahmet/PadOnRails/db/seeds.rb">
+<persistable uri="file:/home/ahmet/PadOnRails/db/seeds.rb"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.aptana.editor.erb.html" name="index.html.erb" tooltip="/home/ahmet/PadOnRails/app/views/statistics/index.html.erb">
+<persistable uri="file:/home/ahmet/PadOnRails/app/views/statistics/index.html.erb"/>
+</file>
+</mruList>
+</workbench>

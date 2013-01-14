@@ -1,0 +1,7 @@
+$('#flash_notices').empty();
+
+<% flash.each do |key, value| %>
+  $('#flash_notices').prepend( '<center><b><div class="flash <%= key %>"><%= value %></div></b></center>' );
+<% end %> 
+
+setupFlashMessageFade();

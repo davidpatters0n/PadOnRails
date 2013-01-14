@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>Untitled Document</title>
+		<script type="text/javascript">function addRowToTable() {
+				var tbl = document.getElementById('tblSample');
+				var lastRow = tbl.rows.length;
+				// if there's no header row in the table, then iteration = lastRow + 1
+				var iteration = lastRow;
+				var row = tbl.insertRow(lastRow);
+
+				//left cell
+				var cellLeft = row.insertCell(0);
+				var textNode = document.createTextNode(iteration);
+				cellLeft.appendChild(textNode);
+
+				// middle cell
+				var cellRight = row.insertCell(1);
+				var el = document.createElement('input');
+				el.type = 'text';
+				el.name = 'txtRow' + iteration;
+				el.id = 'txtRow' + iteration;
+				el.size = 40;
+
+				// select cell
+				var cellRightSel = row.insertCell(2);
+				var sel = document.createElement('select');
+				sel.name = 'selRow' + iteration;
+				sel.options[0] = new Option('text zero', 'value0');
+				sel.options[1] = new Option('text one', 'value1');
+				sel.options[2] = new Option('text two', 'value2');
+				cellRightSel.appendChild(sel);
+			}
+
+			
+			function removeRowFromTable() {
+				var tbl = document.getElementById('tblSample');
+				var lastRow = tbl.rows.length;
+				if(lastRow > 2)
+					tbl.deleteRow( lastRow - 1);
+			}
+
+			function openInNewWindow(frm) {
+				// open a blank window
+				var aWindow = window.open('', 'TableAddRowNewWindow', 
+
+'scrollbars=yes,menubar=yes,resizable=yes,toolbar=no,width=400,height=400');
+
+				// set the target to the blank window
+				frm.target = 'TableAddRowNewWindow';
+
+				// submit
+				frm.submit();
+			}
+
+			function validateRow(frm) {
+				var chkb = document.getElementById('chkValidate');
+				if(chkb.checked) {
+					var tbl = document.getElementById('tblSample');
+					var lastRow = tbl.rows.length - 1;
+					var i;
+					for( i = 1; i <= lastRow; i++) {
+						var aRow = document.getElementById('txtRow' + i);
+						if(aRow.value.length <= 0) {
+							alert('Row ' + i + ' is empty');
+							return;
+						}
+					}
+				}
+				openInNewWindow(frm);
+			}</script>
+	</head>
+	<body>
+		<form action="tableaddrow_nw.html" method="get">
+			<p>
+				<input type="button" value="Add" onclick="addRowToTable();" />
+				<input type="button" value="Remove" onclick="removeRowFromTable();" />
+				<input type="button" value="Submit" onclick="validateRow(this.form);" />
+				
+		
+			<table border="1" id="tblSample">
+				<tr>
+					<th colspan="4">Sample table</th>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>
+					<input type="text" name="txtRow1"
+					id="txtRow1" size="40" onkeypress="keyPressTest(event, this);" />
+					</td>
+					<td>
+					<select name="selRow0">
+						<option value="value0">text zero</option>
+						<option value="value1">text one</option>
+					</select></td>
+					
+					<td>
+						<input type ="text" name="txtRow2"
+						id="txtRow2" size="40">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</body>
+</html>

@@ -1,0 +1,18 @@
+<%= javascript_include_tag 'jquery.dataTables.min', 'datatable','highcharts', 'jquery.dataTables.columnFilter'%>
+<%= stylesheet_link_tag 'demo_table', 'jquery-ui-1.8.4.custom' %> 
+<div class="row">
+<% if current_user.has_role? :Admin%>
+<div class="um rollover" id="um"><a><center><%= link_to image_tag("User.png", :alt => "User Management", :height => "100"), usermanagement_path %></center><br /><center>User Management</center><br /></a></div>
+<div class="pm rollover" id="pm"><a><center><%= link_to image_tag("Project.png", :alt => "Project Management", :height => "100"), projects_path %></center><br /><center>Project Management</center><br /></a></div>
+<div class="ts rollover" id="ts"><a><center><%= link_to image_tag("Timesheet.png", :alt => "Timesheets", :height => "100"), timesheet_path + "/" + current_user.id.to_s %></center><br /><center>Timesheets</center><br /></a></div>
+<div class="crm rollover" id="crm"><a><center><%= link_to image_tag("Customer.png", :alt => "Customer Relation Management", :height => "100"), crm_path %></center><br /><center>Customer Relation Management</center><br /></a></div>
+<div class="sts2 rollover" id="sts2"><a><center><%= link_to image_tag("Graphs.png", :alt => "Statistics", :height => "100"),statistics_path %></center><br /><center>Statistics</center><br /></a></div>
+<% elsif current_user.has_role? :ProjectManager%>
+<div class="um rollover" id="um"><a><center><%= link_to image_tag("Project.png", :alt => "Project Management", :height => "100"), projects_path %></center><br /><center>Project Management</center><br /></a></div>
+<div class="pm rollover" id="pm"><a><center><%= link_to image_tag("Timesheet.png", :alt => "Timesheets", :height => "100"), timesheet_path + "/" + current_user.id.to_s %></center><br /><center>Timesheets</center><br /></a></div>
+<div class="ts rollover" id="ts"><a><center><%= link_to image_tag("Customer.png", :alt => "Customer Relation Management", :height => "100"), crm_path %></center><br /><center>Customer Relation Management</center><br /></a></div>
+<div class="sts rollover" id="sts"><a><center><%= link_to image_tag("Graphs.png", :alt => "Statistics", :height => "100"), statistics_path%></center><br /><center>Statistics</center><br /></a></div>
+<% end %>
+</div>
+
+

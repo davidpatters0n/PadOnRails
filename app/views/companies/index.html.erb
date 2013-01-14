@@ -1,0 +1,120 @@
+<%= javascript_include_tag 'jquery.dataTables.min', 'jquery-ui-1.8.14.custom.min', 'tabs'%>
+<%= stylesheet_link_tag 'demo_table', 'tabs-ui'%>
+<div id="tabs">
+	<ul>
+		<li><a href="#tabs-1">Companies</a></li>
+		<li><a href="#tabs-2">Contacts</a></li>
+		<% if current_user.has_role?(:BusinessManager) %>
+		<li><a href="#tabs-3">Opportunities</a></li>
+		<% else %>
+		<% end %>
+		<li><a href="company/new">Create a Company</a></li>
+		<li><a href="contacts/new">Create a Contact</a></li>
+		<% if current_user.has_role?(:BusinessManager) %>
+		<li><a href="opportunities/new">Create a Opportunity</a></li>
+		<% else %>
+		<% end %>
+	</ul>
+	<div id="tabs-1">
+		<div>
+			<table border="2" width=100% id='companies' class='datatable'>
+				<thead>
+  					<tr>
+    					<th>Name</th>
+    					<th>Address</th>
+    					<th>Telephone</th>
+    					<th>Email</th>
+    					<th>Edit</th>
+    					<th>Delete</th>
+  					</tr>
+  				</thead>
+			<tbody>
+			<% @companies.each do |company| %>
+  					<tr>
+    					<td><%= link_to company.name, company %></td>
+    					<td><%= company.address %></td>
+    					<td><%= company.telephone %></td>
+    					<td><%= link_to company.email, "mailto:" + company.email %></td>
+    					<td><center><%= link_to image_tag("icons/user_edit.png", :alt => "Edit"), edit_company_path(company) %></center></td>
+    					<td><center><%= link_to image_tag("icons/user_delete.png", :alt => "Delete"), company, :confirm => 'Are you sure?', :method => :delete %></center></td>
+  					</tr>
+			<% end %>
+			</tbody>
+			</table>
+			<br />
+		</div>
+	</div>
+	<div id="tabs-2">
+		<div>
+			<table border="2" width = 100% id='contacts' class='datatable'>
+			<thead>
+  				<tr>
+    				<th>Name</th>
+    				<th>Position</th>
+    				<th>Email</th>
+    				<th>Telephone</th>
+    				<th>Source</th>
+    				<th>Company</th>
+    				<th>Edit</th>
+    				<th>Delete</th>
+  				</tr>
+			</thead>
+			<tbody>
+			<% @contacts.each do |contact| %>
+  				<tr>
+    				<td><%= link_to contact.name, contact %></td>
+    				<td><%= contact.position %></td>
+    				<td><%= link_to contact.email, "mailto:" + contact.email%></td>
+    				<td><%= contact.telephone %></td>
+    				<td><%= contact.source %></td>
+    				<td><%= link_to contact.company.name, contact.company %></td>
+    				<td><center><%= link_to image_tag("icons/user_edit.png", :alt => "Edit"), edit_contact_path(contact) %></center></td>
+    				<td><center><%= link_to image_tag("icons/user_delete.png", :alt => "Delete"), contact, :confirm => 'Are you sure?', :method => :delete %></center></td>
+  				</tr>
+			<% end %>
+			</tbody>
+		</table>
+		</div>
+		<br />
+	</div>
+	<% if current_user.has_role?(:BusinessManager) %>
+	<div id="tabs-3">
+		<div>
+			<table border="2" width = 100% id='opportunities' class='datatable'>
+			<thead>
+  				<tr>
+    				<th>Name</th>
+					<th>Status</th>
+					<th>SBU/Stream</th>
+					<th>Value</th>
+					<th>DAI Owner</th>
+					<th>Estimated Descision Date</th>
+					<th>Company Name</th>
+					<th>Contacts</th>
+					<th>Edit</th>
+					<th>Delete</th>
+  				</tr>
+			</thead>
+			<tbody>
+			<% @opportunities.each do |opportunity| %>
+				<tr>
+					<td><%= link_to opportunity.name, opportunity %></td>
+					<td><%= opportunity.status %></td>
+					<td><%= opportunity.sbustream %></td>
+					<td><%= opportunity.value %></td>
+					<td><%= User.find_by_id(opportunity.daiowner).full_name %></td>
+					<td><%= opportunity.estdescisiondate %></td>
+					<td><%= link_to opportunity.company.name , opportunity.company %></td>
+					<td><%= opportunity.contacts %></td>
+    				<td><center><%= link_to image_tag("icons/user_edit.png", :alt => "Edit"), edit_opportunity_path(opportunity) %></center></td>
+    				<td><center><%= link_to image_tag("icons/user_delete.png", :alt => "Delete"), opportunity, :confirm => 'Are you sure?', :method => :delete %></center></td>
+  				</tr>
+			<% end %>
+			</tbody>
+		</table>
+		</div>
+		<br />
+	</div>
+	<% else %>
+	<% end %>
+</div>

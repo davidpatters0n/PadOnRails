@@ -1,0 +1,763 @@
+<%= javascript_include_tag 'highcharts', 'exporting' %>
+<%= javascript_include_tag 'jquery.dataTables.min', 'datatable', 'jquery.dataTables.columnFilter', 'tabs'%>
+<%= stylesheet_link_tag 'demo_table', 'tabs-ui' %> 
+
+<div id="tabs">
+	<ul>
+		<li><a href="#tabs-1">Hours by Project</a></li>
+		<li><a href="#tabs-4">Pre-sales</a></li>
+		<li><a href="#tabs-5">Project</a></li>
+		<li><a href="#tabs-6">Fault Fixing</a></li>
+		<li><a href="#tabs-7">Support</a></li>
+		<li><a href="#tabs-8">Out Of Hours</a></li>
+		<li><a href="#tabs-2">Hours By Tasks</a></li>
+		<li><a href="#tabs-3">Hours By Task Type</a></li>
+	</ul>
+
+<div id="tabs-1">
+<%= render 'projectselect' %>
+<div style="width:95%;" id="container1"></div>
+	
+<script>
+$(document).ready(function() {var chart = new Highcharts.Chart(options);});
+
+var options = {
+    chart: {
+         renderTo: 'container1',
+         defaultSeriesType: 'column'
+      },
+      title: {
+          text: '<%= @project.project_name %>',
+      },
+      subtitle: {
+         text: 'Project Hours'
+      },
+      xAxis: {
+         categories: [
+            'Pre-Sales',
+            'Project',
+            'Fault Fixing',
+            'Support',
+            'Out Of Hours'
+         ]
+      },
+      yAxis: {
+         min: 0,
+         title: {
+            text: 'Hours'
+         }
+      },
+        plotOptions: {
+         series: {
+            stacking: 'normal'
+ 
+         }
+      },ip: {
+         formatter: function() {
+            return ''+
+               this.x +': '+ this.y +' Hours';
+         }
+      },
+      
+      credits: {
+         text: 'Dai.co.uk',
+         href: 'http://www.Dai.co.uk'
+      },
+      
+      exporting: {
+         enabled: true,
+         filename: 'Project-Hours'
+      },
+   
+      plotOptions: {
+         column: {
+            pointPadding: 0.3,
+            borderWidth: 0
+         }
+      },
+      <!-- Store the TOTAL variables here -->
+	  <% presales = @data.reduce(0) { |sum, x| sum += x[:values][0] } %>
+	  <% project = @data.reduce(0) { |sum, x| sum += x[:values][1] } %>
+	  <% fault = @data.reduce(0) { |sum, x| sum += x[:values][2] } %>
+	  <% support = @data.reduce(0) { |sum, x| sum += x[:values][3] } %>
+	  <% outofhours = @data.reduce(0) { |sum, x| sum += x[:values][4] } %>
+	  <!-- END -->
+      series: [
+      <% @data.each do |data| %>
+      {
+          name: '<%= data[ :name ] %>',
+          data: [
+          <% data[ :values ].each do |value| %>
+            <%= value %>,
+          <% end %>
+          ]
+      },
+      <% end %>
+	  {
+		name: 'Total',
+		data: [<%= presales %>, <%= project %>, <%= fault %>, <%= support %>, <%= outofhours %>]
+	  }
+      ]
+};
+</script>
+</div>
+	
+<div id="tabs-2">
+		<table border="2" width="100%" id='taskstypestatistics' class='datatable'>
+			<thead>
+				<tr>
+					<th colspan="3"><center><%= @project.project_name %></center></th>
+				</tr>
+				<tr>
+					<th>Project Task Type</th>
+					<th>Project Tasks</th>
+					<th>Hours</th>
+				</tr>
+			</thead>
+			<tbody>				
+				<% sumTotal = 0 %>	
+				<% t = 0 %>
+				<% y = 0 %>
+				<% @project_tasks.each do |project_task| %>
+  				<tr>  					
+					<td><%= project_task.taskType %></td>
+  					<td><%= project_task.task_name %></td> 					
+  					<% @au = project_task.efforts %>
+  						 <% h = 0 %>
+  						  <% @a = @au.find_all_by_project_task_id(project_task.id) %>
+							<% @a.each do |pe| %>							
+  						  	<% pe.hours%>
+							<% h = h + pe.hours%>
+							<%end%>
+														
+							<% t = h %> 
+							<% sumTotal = sumTotal + t %>					
+						  
+  					<td> 						
+  						<%= t %> 						
+  					</td>
+  						
+  				</tr>
+  				<% end %>
+     		<tfoot>
+				<tr>
+					<th colspan="2">Total Hours</th><td><b><%= sumTotal %></b></td>
+				</tr>
+			</tfoot>
+  			</tbody>
+		</table>
+		
+		
+</div>
+	
+	
+<div id="tabs-3">
+<table border="2" width="100%" id='taskstypestatistics' class='datatable'>
+			<thead>
+				<tr>
+					<th colspan="4"><center><%= @project.project_name %></center></th>
+				</tr>
+				<tr>
+					<th>Types/Tasks</th>
+					<th>Task Names</th>
+					<th>Developers</th>
+					<th>Totals</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+				<td>Pre-Sales</td>
+				<% @pt = ProjectTask.where("project_id = ? AND taskType = ?" ,@project.id, "Pre-Sales")%>
+				<% @prt = ProjectTask.where("project_id = ? AND taskType = ?" ,@project.id, "Pre-Sales")%>
+				<% total = 0 %>
+				<% sumTotal = 0 %>
+				
+				<td>
+				<% @prt.each do |prt| %>
+					<%= prt.task_name%><br />
+				<% end %>
+				</td>
+				
+				<% @prot = ProjectTask.where("project_id = ? AND taskType = ?" ,@project.id, "Pre-Sales")%>
+				<td>
+				<% @prot.each do |prot| %>
+					<% @effort = Effort.where(:project_task_id => prot.id)%>
+						<% @effort.each do |eff| %>
+							<%= eff.user.full_name %> - <%= eff.hours %><br />
+						<% end %>
+				<% end %>
+				</td>
+				<% @pt.each do |pt| %>
+					<% @eff = Effort.where(:project_task_id => pt.id)%>
+					<% @eff.each do |eff| %>
+						<% total = total + eff.hours %>
+					<% end %>
+				<% end %>
+				<td><%= total %></td>
+				<% sumTotal = sumTotal + total %>
+				<tr>
+					<td>Project</td>
+					<% @pt = ProjectTask.where("project_id = ? AND taskType = ?" ,@project.id, "Project")%>
+					<% total = 0 %>
+					
+					<td>
+					<% @pt.each do |pt| %>
+						<%= pt.task_name%><br />
+					<% end %>
+					</td>
+					
+					<% @prot = ProjectTask.where("project_id = ? AND taskType = ?" ,@project.id, "Project")%>
+					<td>
+					<% @prot.each do |prot| %>
+						<% @effort = Effort.where(:project_task_id => prot.id)%>
+							<% @effort.each do |eff| %>
+								<%= eff.user.full_name %> - <%= eff.hours %><br />
+							<% end %>
+					<% end %>
+					</td>
+					<% @pt.each do |pt| %>
+						<% @eff = Effort.where(:project_task_id => pt.id)%>
+						<% @eff.each do |eff| %>
+							<% total = total + eff.hours %>
+						<% end %>
+					<% end %>
+					
+					<td><%= total %></td>
+					
+					<% sumTotal = sumTotal + total %>
+					<tr>
+						<td>Fault Fixing</td>
+						<% @pt = ProjectTask.where("project_id = ? AND taskType = ?" ,@project.id, "Fault Fixing")%>
+						<% total = 0 %>
+						
+						<td>
+						<% @pt.each do |pt| %>
+							<%= pt.task_name%><br />
+						<% end %>
+						</td>
+						
+						
+						<% @prot = ProjectTask.where("project_id = ? AND taskType = ?" ,@project.id, "Fault Fixing")%>
+						<td>
+						<% @prot.each do |prot| %>
+							<% @effort = Effort.where(:project_task_id => prot.id)%>
+								<% @effort.each do |eff| %>
+									<%= eff.user.full_name %> - <%= eff.hours %><br />
+								<% end %>
+						<% end %>
+						</td>
+						<% @pt.each do |pt| %>
+							<% @eff = Effort.where(:project_task_id => pt.id)%>
+							<% @eff.each do |eff| %>
+								<% total = total + eff.hours %>
+							<% end %>
+						<% end %>
+						
+						<td><%= total %></td>
+						<% sumTotal = sumTotal + total %>
+						<tr>
+							<td>Support</td>
+							<% @pt = ProjectTask.where("project_id = ? AND taskType = ?" ,@project.id, "Support")%>
+							<% total = 0 %>
+							
+							<td>
+							<% @pt.each do |pt| %>
+								<%= pt.task_name%><br />
+							<% end %>
+							</td>
+							
+							<% @prot = ProjectTask.where("project_id = ? AND taskType = ?" ,@project.id, "Support")%>
+							<td>
+							<% @prot.each do |prot| %>
+								<% @effort = Effort.where(:project_task_id => prot.id)%>
+									<% @effort.each do |eff| %>
+										<%= eff.user.full_name %> - <%= eff.hours %><br />
+									<% end %>
+							<% end %>
+							</td>
+							<% @pt.each do |pt| %>
+								<% @eff = Effort.where(:project_task_id => pt.id)%>
+								<% @eff.each do |eff| %>
+									<% total = total + eff.hours %>
+								<% end %>
+							<% end %>
+							
+							<td><%= total %></td>
+							<% sumTotal = sumTotal + total %>
+							<tr>
+								<td>Out Of Hours</td>
+								<% @pt = ProjectTask.where("project_id = ? AND taskType = ?" ,@project.id, "Out Of Hours")%>
+								<% total = 0 %>
+								
+								<td>
+								<% @pt.each do |pt| %>
+									<%= pt.task_name%><br />
+								<% end %>
+								</td>
+								
+								
+								<% @prot = ProjectTask.where("project_id = ? AND taskType = ?" ,@project.id, "Out Of Hours")%>
+								<td>
+								<% @prot.each do |prot| %>
+									<% @effort = Effort.where(:project_task_id => prot.id)%>
+										<% @effort.each do |eff| %>
+											<%= eff.user.full_name %> - <%= eff.hours %><br />
+										<% end %>
+								<% end %>
+								</td>
+								<% @pt.each do |pt| %>
+									<% @eff = Effort.where(:project_task_id => pt.id)%>
+									<% @eff.each do |eff| %>
+										<% total = total + eff.hours %>
+									<% end %>
+								<% end %>
+								
+								<td><%= total %></td>
+							</tr>
+						</tr>
+					</tr>
+				</tr>
+     		<tfoot>
+				<tr>
+					<th colspan="3">Total Hours</th><td><b><%= sumTotal %></b></td>
+				</tr>
+			</tfoot>
+  			</tbody>
+		</table>
+</div>
+<div id="tabs-4">
+
+<div class="rightcol">
+<label for="from">From</label>
+<input type="text" id="from" name="from" size="15"/>
+<label for="to">to</label>
+<input type="text" id="to" name="to" size="15"/>
+</div>
+
+
+
+<div style="width:95%;" id="container2"></div>
+				
+<script>
+
+<div id="container" style="height: 400px"></div>
+<%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
+<script>
+
+  var chart;
+  $(document).ready(function() { chart = new Highcharts.Chart(options);});
+onchange: $(function() {
+        var dates = $( "#from, #to" ).datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 1,
+            onSelect: function( selectedDate ) {
+
+              var option = this.id == "from" ? "minDate" : "maxDate",
+              instance = $( this ).data( "datepicker" ),
+                date = $.datepicker.parseDate(
+                  instance.settings.dateFormat || $.datepicker._defaults.dateFormat,
+                  selectedDate,
+                  instance.settings
+                );
+                dates.not( this ).datepicker( "option", option, date );
+
+                //Validate if both dates have been selected and make ajax request 
+                if ($(dates[0]).datepicker("getDate") &&
+                    $(dates[1]).datepicker("getDate")) {
+                      var from = $(dates[0]).datepicker("getDate");
+                      var to =   $(dates[1]).datepicker("getDate");
+                  $.ajax({
+                    type: 'POST',
+                    url: '<%= user_projects_time_entries_path(:user_id => current_user.id, :format => :json) %>',
+                    data: {
+                      "from": from.getFullYear() + "-" + ("0" + (from.getMonth()+1)).slice(-2) + "-" + ("0" + from.getDate()).slice(-2), 
+                      "to" : to.getFullYear() + "-" + ("0" + (to.getMonth()+1)).slice(-2) + "-" + ("0" + to.getDate()).slice(-2),
+                      "authenticity_token": AUTH_TOKEN
+                    },
+                       
+     				success: function(data) {
+                       //Once the request is made and have the new set of data, the old chart is removed. 
+                       while(chart.series.length > 0) {
+                           chart.series[0].remove();
+                       }
+                       
+                      // add each object from response as new series
+                      $.each(data, function(i, e) {
+                          chart.addSeries(e);
+                      })
+                    }
+                  });
+                }
+            }
+        });
+    });
+
+$(document).ready(function() {var chart2 = new Highcharts.Chart(options2);});
+<% @prt = ProjectTask.where("project_id = ? AND taskType = ?" ,@project.id, "Pre-Sales")%>
+var options2 = {
+    chart: {
+         renderTo: 'container2',
+         defaultSeriesType: 'column'
+      },
+      title: {
+          text: '<%= @project.project_name %>',
+      },
+      subtitle: {
+         text: 'Project Hours'
+      },
+      xAxis: {
+         categories: [<% @prt.each do |prt| %>
+						'<%= prt.task_name%>',
+						<% end %>
+         ]
+      },
+      yAxis: {
+         min: 0,
+         title: {
+            text: 'Hours'
+         }
+      },
+        plotOptions: {
+         series: {
+            stacking: 'normal'
+ 
+         }
+      },ip: {
+         formatter: function() {
+            return ''+
+               this.x +': '+ this.y +' Hours';
+         }
+      },
+      
+      credits: {
+         text: 'Dai.co.uk',
+         href: 'http://www.Dai.co.uk'
+      },
+      
+      exporting: {
+         enabled: true,
+         filename: 'Project-Hours'
+      },
+   
+      plotOptions: {
+         column: {
+            pointPadding: 0.3,
+            borderWidth: 0
+         }
+      },
+      series: [
+		<% @prt.each do |prt| %>
+		<% hoursSum = 0 %>
+      {
+          name: '<%= prt.task_name%>',
+          data: [<% @taskHours = Effort.where(:project_task_id => prt.id) %>
+					<% @taskHours.each do |th| %>
+						<% hoursSum = hoursSum + th.hours %>
+					<% end %>
+					<%= hoursSum%>
+          ]
+      },<% end %>
+      ]
+};
+</script>
+</div>
+
+<div id="tabs-5">
+
+<div style="width:95%;" id="container3"></div>
+	
+<script>
+$(document).ready(function() {var chart3 = new Highcharts.Chart(options3);});
+<% @prt3 = ProjectTask.where("project_id = ? AND taskType = ?" ,@project.id, "Project")%>
+var options3 = {
+    chart: {
+         renderTo: 'container3',
+         defaultSeriesType: 'column'
+      },
+      title: {
+          text: '<%= @project.project_name %>',
+      },
+      subtitle: {
+         text: 'Project Hours'
+      },
+      xAxis: {
+         categories: [<% @prt3.each do |prt| %>
+						'<%= prt.task_name%>',
+						<% end %>
+         ]
+      },
+      yAxis: {
+         min: 0,
+         title: {
+            text: 'Hours'
+         }
+      },
+        plotOptions: {
+         series: {
+            stacking: 'normal'
+ 
+         }
+      },ip: {
+         formatter: function() {
+            return ''+
+               this.x +': '+ this.y +' Hours';
+         }
+      },
+      
+      credits: {
+         text: 'Dai.co.uk',
+         href: 'http://www.Dai.co.uk'
+      },
+      
+      exporting: {
+         enabled: true,
+         filename: 'Project-Hours'
+      },
+   
+      plotOptions: {
+         column: {
+            pointPadding: 0.3,
+            borderWidth: 0
+         }
+      },
+	  
+      series: [
+		<% @prt3.each_with_index do |prt| %>
+		<% hoursSum = 0 %>
+      {
+          name: '<%= prt.task_name%>',
+          data: [<% @taskHours = Effort.where(:project_task_id => prt.id) %>
+					<% @taskHours.each do |th| %>
+						<% hoursSum = hoursSum + th.hours %>
+					<% end %>
+					<%= hoursSum%>
+          ]
+      },<% end %>
+      ]
+};
+</script>
+</div>
+<div id="tabs-6">
+
+<div style="width:95%;" id="container4"></div>
+	
+<script>
+$(document).ready(function() {var chart4 = new Highcharts.Chart(options4);});
+<% @prt4 = ProjectTask.where("project_id = ? AND taskType = ?" ,@project.id, "Fault Fixing")%>
+var options4 = {
+    chart: {
+         renderTo: 'container4',
+         defaultSeriesType: 'column'
+      },
+      title: {
+          text: '<%= @project.project_name %>',
+      },
+      subtitle: {
+         text: 'Project Hours'
+      },
+      xAxis: {
+         categories: [<% @prt4.each do |prt| %>
+						'<%= prt.task_name%>',
+						<% end %>
+         ]
+      },
+      yAxis: {
+         min: 0,
+         title: {
+            text: 'Hours'
+         }
+      },
+        plotOptions: {
+         series: {
+            stacking: 'normal'
+ 
+         }
+      },ip: {
+         formatter: function() {
+            return ''+
+               this.x +': '+ this.y +' Hours';
+         }
+      },
+      
+      credits: {
+         text: 'Dai.co.uk',
+         href: 'http://www.Dai.co.uk'
+      },
+      
+      exporting: {
+         enabled: true,
+         filename: 'Project-Hours'
+      },
+   
+      plotOptions: {
+         column: {
+            pointPadding: 0.3,
+            borderWidth: 0
+         }
+      },
+      series: [
+		<% @prt4.each_with_index do |prt| %>
+		<% hoursSum = 0 %>
+      {
+          name: '<%= prt.task_name%>',
+          data: [<% @taskHours = Effort.where(:project_task_id => prt.id) %>
+					<% @taskHours.each do |th| %>
+						<% hoursSum = hoursSum + th.hours %>
+					<% end %>
+					<%= hoursSum%>
+          ]
+      },<% end %>
+      ]
+};
+</script>
+</div>
+<div id="tabs-7">
+
+<div style="width:95%;" id="container5"></div>
+	
+<script>
+$(document).ready(function() {var chart5 = new Highcharts.Chart(options5);});
+<% @prt5 = ProjectTask.where("project_id = ? AND taskType = ?" ,@project.id, "Support")%>
+var options5 = {
+    chart: {
+         renderTo: 'container5',
+         defaultSeriesType: 'column'
+      },
+      title: {
+          text: '<%= @project.project_name %>',
+      },
+      subtitle: {
+         text: 'Project Hours'
+      },
+      xAxis: {
+         categories: [<% @prt5.each do |prt| %>
+						'<%= prt.task_name%>',
+						<% end %>
+         ]
+      },
+      yAxis: {
+         min: 0,
+         title: {
+            text: 'Hours'
+         }
+      },
+        plotOptions: {
+         series: {
+            stacking: 'normal'
+ 
+         }
+      },ip: {
+         formatter: function() {
+            return ''+
+               this.x +': '+ this.y +' Hours';
+         }
+      },
+      
+      credits: {
+         text: 'Dai.co.uk',
+         href: 'http://www.Dai.co.uk'
+      },
+      
+      exporting: {
+         enabled: true,
+         filename: 'Project-Hours'
+      },
+   
+      plotOptions: {
+         column: {
+            pointPadding: 0.3,
+            borderWidth: 0
+         }
+      },
+      series: [
+		<% @prt5.each_with_index do |prt| %>
+		<% hoursSum = 0 %>
+      {
+          name: '<%= prt.task_name%>',
+          data: [<% @taskHours = Effort.where(:project_task_id => prt.id) %>
+					<% @taskHours.each do |th| %>
+						<% hoursSum = hoursSum + th.hours %>
+					<% end %>
+					<%= hoursSum%>
+          ]
+      },<% end %>
+      ]
+};
+</script>
+</div>
+<div id="tabs-8">
+
+<div style="width:95%;" id="container6"></div>
+	
+<script>
+$(document).ready(function() {var chart6 = new Highcharts.Chart(options6);});
+<% @prt6 = ProjectTask.where("project_id = ? AND taskType = ?" ,@project.id, "Out Of Hours")%>
+var options6 = {
+    chart: {
+         renderTo: 'container6',
+         defaultSeriesType: 'column'
+      },
+      title: {
+          text: '<%= @project.project_name %>',
+      },
+      subtitle: {
+         text: 'Project Hours'
+      },
+      xAxis: {
+         categories: [<% @prt6.each do |prt| %>
+						'<%= prt.task_name%>',
+						<% end %>
+         ]
+      },
+      yAxis: {
+         min: 0,
+         title: {
+            text: 'Hours'
+         }
+      },
+        plotOptions: {
+         series: {
+            stacking: 'normal'
+ 
+         }
+      },ip: {
+         formatter: function() {
+            return ''+
+               this.x +': '+ this.y +' Hours';
+         }
+      },
+      
+      credits: {
+         text: 'Dai.co.uk',
+         href: 'http://www.Dai.co.uk'
+      },
+      
+      exporting: {
+         enabled: true,
+         filename: 'Project-Hours'
+      },
+   
+      plotOptions: {
+         column: {
+            pointPadding: 0.3,
+            borderWidth: 0
+         }
+      },
+      series: [
+		<% @prt6.each_with_index do |prt| %>
+		<% hoursSum = 0 %>
+      {
+          name: '<%= prt.task_name%>',
+          data: [<% @taskHours = Effort.where(:project_task_id => prt.id) %>
+					<% @taskHours.each do |th| %>
+						<% hoursSum = hoursSum + th.hours %>
+					<% end %>
+					<%= hoursSum%>
+          ]
+      },<% end %>
+      ]
+};
+</script>
+</div>
+</div>

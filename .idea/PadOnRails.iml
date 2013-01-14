@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="RUBY_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="RailsFacetType" name="Ruby on Rails">
+      <configuration>
+        <RAILS_FACET_CONFIG_ID NAME="RAILS_FACET_SUPPORT_REMOVED" VALUE="false" />
+        <RAILS_FACET_CONFIG_ID NAME="RAILS_TESTS_SOURCES_PATCHED" VALUE="true" />
+        <RAILS_FACET_CONFIG_ID NAME="RAILS_FACET_APPLICATION_ROOT" VALUE="$MODULE_DIR$" />
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/tmp" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="rack-test (v0.5.7, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="factory_girl_rails (v1.0, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="devise (v1.4.2, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="railties (v3.0.9, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="builder (v2.1.2, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="polyglot (v0.3.1, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="faker (v0.3.1, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="arel (v2.0.10, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="factory_girl (v1.3.3, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="warden (v1.0.4, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="activerecord (v3.0.9, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rdoc (v3.7, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="erubis (v2.6.6, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="orm_adapter (v0.0.5, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="commander (v4.0.5, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="diff-lcs (v1.1.2, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="mime-types (v1.16, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="activemodel (v3.0.9, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="client_side_validations (v3.1.0, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="webrat (v0.7.2, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="tilt (v1.3.2, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="sinatra (v1.2.6, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="autotest (v4.4.6, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec-mocks (v2.6.0, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="acl9 (v0.12.0, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="ZenTest (v4.6.0, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="autotest-rails-pure (v4.1.2, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="activesupport (v3.0.9, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rack-mount (v0.6.14, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="i18n (v0.5.0, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="actionpack (v3.0.9, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="highline (v1.6.2, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec-expectations (v2.6.0, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="autotest-growl (v0.2.9, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="jquery-rails (v1.0.12, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="will_paginate (v3.0.pre2, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.5.0, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec (v2.6.0, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="mail (v2.2.19, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="lazy_high_charts (v1.1.5, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rake (v0.8.7, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="annotate (v2.4.0, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="spork (v0.9.0.rc8, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="treetop (v1.4.9, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="tzinfo (v0.3.29, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="activeresource (v3.0.9, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="foreigner (v1.0.3, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="autotest-rails (v4.1.0, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec-core (v2.6.4, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="carrierwave (v0.5.7, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="mysql (v2.8.1, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="json_pure (v1.5.3, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="thor (v0.14.6, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rack (v1.2.3, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="bundler (v1.0.21, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rails (v3.0.9, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="test-unit (v2.3.2, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec-rails (v2.6.1, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="tiny_mce (v0.1.4, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="bcrypt-ruby (v2.1.4, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="actionmailer (v3.0.9, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="jspec (v4.3.3, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="abstract (v1.0.0, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="bind (v0.2.8, RVM: ruby-1.9.2-p290 [global]) [gem]" level="application" />
+  </component>
+  <component name="RModuleSettingsStorage">
+    <LOAD_PATH number="0" />
+    <I18N_FOLDERS number="1" string0="$MODULE_DIR$/config/locales" />
+  </component>
+</module>
+

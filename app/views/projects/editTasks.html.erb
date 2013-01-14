@@ -1,0 +1,27 @@
+<h1>Edit Tasks</h1>
+<%= form_for @project, :validate => true do |f| %>
+	
+
+<fieldset style="width: 200px;">
+  	<legend><%= @project.project_number%> <%= @project.project_name %>'s Tasks</legend>
+	<table>
+		<tr>
+			<th>Task Name</th>
+			<th></th>
+		</tr>
+		<% for project_task in @project.project_tasks %>
+		<tr>
+			<td><%= project_task.task_name %></td>
+			<td><%= link_to "Edit", edit_project_task_path(project_task) %></td>
+			<td><%= link_to 'Destroy', project_task, :confirm => 'Are you sure?', :method => :delete, :remote => :true %></td>
+		</tr>
+		<% end %>
+	</table>
+</fieldset>
+
+<fieldset style="width:200px">
+	<legend>Create a New Task</legend>
+	<%= link_to 'New Project task', new_project_task_path %>
+</fieldset>
+
+<% end %>

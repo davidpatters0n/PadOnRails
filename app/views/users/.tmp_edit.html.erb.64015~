@@ -1,0 +1,55 @@
+<h1 class="head">Edit your information</h1>
+<%= form_for(@user) do |f| %>
+  <%= render 'shared/error_messages', :object => f.object %>
+  <div class="field">
+    <%= f.label :username %><br />
+    <%= f.text_field :username, :disabled => 'disabled' %>
+  </div>
+  <div class="field">
+      <%= f.label :full_name %><br />
+      <%= f.text_field :full_name%>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <script>
+  $(document).ready(funtion() {
+   $("#password").html($("#current").html());
+});
+  </script>
+  <div class="field">
+  	<%= f.label :password %><br />
+  	<%= f.text_field :password, :id => "password" %>
+  </div>
+  <div class="field">
+  	<%= f.label :password_confirmation %><br />
+  	<%= f.text_field :password_confirmation %>
+  </div>
+  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+  <%= f.password_field :current_password, :id => "current" %></div>
+  
+  <% if current_user.has_role? :Admin %>
+  <div class="field">
+  <div style="width:150px"><legend >Group</legend>
+      <table border="1" width="100%">
+      <tr>
+            <th></th>
+            <th></th>
+      </tr>
+      <% for role in @roles %>
+      <tr>
+            <td><%= role.name %></td>
+            <td><%= check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role) %></td>
+      <tr>
+      <% end %>
+      </table>
+      </div>
+  </div>
+<% else %>
+<% end %>
+<div class="actions">
+    <%= f.submit "Update" %>
+</div>
+<% end %>
+<%= button_to 'Back', user_path(@user) %>

@@ -1,0 +1,34 @@
+<%= form_for @contact, :validate => true do |f|%>
+
+  <div class="field">
+    <b>Contact Name</b><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :position %><br />
+    <%= f.text_field :position %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :telephone %><br />
+    <%= f.text_field :telephone %>
+  </div>
+  <div class="field">
+    <%= f.label :source %><br />
+    <%= f.text_field :source %><h9>
+  </div>
+  <div class="field">
+    <b>Company</b><br />
+    <%= f.select(:company_id, Company.all.collect {|company| [company.name, company.id]}.sort{|a, b| a[0] <=> b[0]}) %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+<%= link_to 'Show', @contact %> |
+<%= link_to 'Back', contacts_path %>

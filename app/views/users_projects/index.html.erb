@@ -1,0 +1,118 @@
+<%= javascript_include_tag 'jquery-1.6.2.min' %>
+
+<script>
+
+var idList = new Array();
+function getIds()
+{
+	idList = [];
+    // find all the checked checkboxes
+    $('input[name^="check_"]:checked').each(function() {
+        //fill the array with the values
+        var name = $(this).attr('name');
+		idList.push(name); 
+    });
+    
+  	var numList = new Array();
+
+  	for (var i = idList.length; i>0; i--)
+  	{ 
+  		var popped = idList.pop();
+
+  		pSplit = popped.split('check_');
+  		num = pSplit[1];
+  		
+  		numList.push(num);
+	}
+	
+	alert(numList);
+}
+
+var ids = new Array();
+function submitusers_project()
+{
+	ids = [];
+    // find all the checked checkboxes
+    $('input[name^="check_"]:checked').each(function() {
+        //fill the array with the values
+        var name = $(this).attr('name');
+		ids.push(name); 
+    });
+    
+  	var numList = new Array();
+
+  	for (var i = ids.length; i>0; i--)
+  	{ 
+  		var popped = ids.pop();
+  		pSplit = popped.split('check_');
+  		num = pSplit[1];
+  		numList.push(num);
+	}
+	
+	alert(numList);
+	
+	var element = numList.pop();
+	submitStuff(element);
+}
+
+function submitStuff(elem)
+{
+	$("#project_id").val(elem);
+	$("#users_project_form").submit();
+	alert("submitted");
+}
+</script>
+
+<% user_project_ids = @users_projects.map(&:project_id) %>
+
+<fieldset style="width: 400px;">
+	<legend>Current Projects</legend>
+	<table>
+		<tr>
+			<th>Project ID</th>
+			<th>Project Name</th>
+		</tr>
+		<% @projects.each do |project| %>
+		<% if project.project_name == "ADMIN" %>
+		<% else %>
+			<tr>
+				<td><%= project.id %></td>
+				<td><%= project.project_number %></td>
+				<td><%= project.project_name%></td>
+				<td><input name="check_<%= project.id %>" type="checkbox"
+					<%=' checked="yes"' if user_project_ids.include? project.id %>></td>
+			</tr>
+		<% end %>
+		<% end %>
+	</table>
+</fieldset>
+
+
+<button onclick="getIds();">Click</button>
+<button onclick="submitusers_project();">Update</button>
+
+<%= form_tag( "/submitusers_projects", :remote => true, :id => "users_project_form" )  do %>
+    <input type="hidden" id="project_id" name="project_id" value="x">
+    <input type="hidden" id="user_id" name="user_id" value="<%= current_user.id %>">
+<% end %>
+
+<fieldset>
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>Project ID</th>
+			<th>User ID</th>
+		</tr>
+		<% @users_projects.each do |up| %>
+			<tr>
+				<td><%= up.id %></td>
+				<td><%= up.project_id %></td>
+				<td><%= up.user_id %></td>
+			</tr>
+		<% end %>
+	<table>
+</fieldset>
+
+
+
+      

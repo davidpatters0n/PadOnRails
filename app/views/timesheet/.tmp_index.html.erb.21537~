@@ -1,0 +1,149 @@
+<%= stylesheet_link_tag 'demo_table2'%> 
+<%= javascript_include_tag 'jquery.dataTables2.min'%>
+<%= javascript_include_tag 'jquery-1.6.2.min' %>
+<%= javascript_include_tag 'jquery-ui-1.8.14.custom.min' %>
+<%= javascript_include_tag "error_messages" %>
+<%= javascript_include_tag 'datepicker' %>
+<fieldset>
+	<b><center>Hours for Week commencing: <span id="startDate"><%= Date.today.beginning_of_week.strftime('%d/%m/%Y') %></span></center></b>
+</fieldset>
+
+<h1 class="head">Timesheet</h1>
+<div class="firstrow">
+<div class="startleft">
+	<div class="week-picker"></div>
+</div>
+
+<div class="left">
+<b>Project Selector</b>
+<select id="project_selector" onchange="$.ajax('/projects/' + $('#project_selector').val() + '/project_tasks.js');">
+  <% @projects.each do |project| %>
+    <option value="<%= project.id %>"><%= project.project_number %> <%= project.project_name %></option>
+  <% end %>
+</select>
+
+<table border="2" width="100%" id='tasks' class='datatable'>
+	<thead>
+		<tr>
+			<th>Task</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody id='tasks_tb'>
+	<!--
+  	<% @projects.each do |project| %>
+  		<tr>
+  			<td><%= project.project_number %></td>
+  			<td><%= project.project_name %></td>
+            <td><%= link_to_function image_tag("icons/add.png"), "CreateNewRow('#{project.project_number}','#{project.project_name}')", :remote => true %></td>
+        </tr>        		
+    <%- end -%>
+    -->
+  </tbody>
+</table>
+</div>
+<div class="left">
+	<b>Tasks this week</b>
+
+    <ul id="task_list">
+    	<form name="frmMain" method="post">
+		<table width="470" border="1" id="tbExp">
+		  <tr>
+		  	<td><div align="left">Task Name</div></td>
+		    <td><div align="left">Hours </div></td>
+		    <td><div align="center"></div></td>	
+		  </tr>
+		</table>
+		
+		<input type="hidden" name="hdnMaxLine" value="0">
+		</form>
+    </ul>
+</div>
+</fieldset>
+<!-- Task list table -->
+
+<!-- Hours list table -->
+
+
+<!-- Hidden form for submitting timesheet entries -->
+<form action="/submiteffort" id="effort_form" method="post">
+    <input type="hidden" name="wc" value="<%= Date.today.beginning_of_week.strftime('%d/%m/%Y') %>">
+    <input type="hidden" id="task_id" name="task_id" value="x">
+    <input type="hidden" id="effort_hours" name="hours" value="0">
+</form>
+<!-- Javascript code to submit the hidden form -->
+<script>
+function submiteffort( elem )
+{
+	// Elem 1
+    $("#effort_hours").val( $( elem ).val() );
+    $("#task_id").val( elem.id );
+    $("#effort_form").submit();
+    return true;
+
+    
+}
+
+function medium( leave, toil, sick)
+{
+	var dave = submiteffort(document.getElementsByName(leave));
+	
+	if(dave == true){
+		var dave2 = submiteffort(document.getElementsByName(toil));
+	}
+	
+	if(dave2 == true){
+		submiteffort(document.getElementsByName(sick));
+	}
+}
+
+</script>
+
+</div>
+
+<div class="sideb">
+<div class="right" id="sidebar">
+	<fieldset>
+<h3>Recently Viewed</h3>
+<table>
+  <tr>
+  	<th>Project No.</th>
+    <th>Project names</th>
+    <th></th>
+  </tr>
+  <tr>
+  	<td>123</td>
+    <td>Test</td>
+    <td><%= link_to image_tag("icons/add.png") %></td>
+  </tr>
+</table>
+
+</fieldset>
+</div>
+</div>
+<div class="secondrow">
+<div class="startleft">
+	<table>
+		<tr>
+			<td>Leave</td>
+			<td><input class="dayinput" type="text" name="Leave" placeholder="0" ></td>
+		</t>
+		<tr>
+			<td>TOIL</td>
+			<td><input class="dayinput" type="text" name="TOIL" placeholder="0"></td>
+		</tr>
+		<tr>
+			<td>Sick</td>
+			<td><input class="dayinput" type="text" name="Sick" placeholder="0"></td>
+		</tr>
+		<tr>
+			<td>Total</td>
+			<td><input id="total" class="total_low" type="text" value="0" disabled="" name="Dave">
+		</tr>
+		<tr>
+			<td></td>
+		<td><button onclick="medium('Leave','TOIL','Sick')">Commit</button></td>
+	    </tr>
+	</table>
+	</div>
+<%= javascript_include_tag 'timesheet'%>

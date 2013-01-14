@@ -1,0 +1,90 @@
+<%= javascript_include_tag 'jquery-1.6.2.min', 'jquery-ui-1.8.14.custom.min'%>
+<%= javascript_include_tag 'jquery.dataTables.min', 'datatable', 'jquery.dataTables.columnFilter', 'tabs'%>
+<%= stylesheet_link_tag 'demo_table', 'tabs-ui' %> 
+<div id="tabs">
+	<ul>
+		<li><a href="#tabs-1">Users</a></li>
+		<li><a href="create">Create a User</a></li>
+		<li><a href="#tabs-3">View a Timesheet</a></li>
+	</ul>
+	<div id="tabs-1">
+		<div>
+		<table border="2" width="100%" id='users' class='datatable'>
+			<thead>
+				<tr>
+					<th>Username</th>
+					<th>Full Name</th>
+					<th>Email</th>
+					<th>Groups</th>
+					<th>Created On</th>
+					<th>Last Seen</th>
+					<th>Sign in Count</th>
+					<th><center>Delete</center></th>
+				</tr>
+			</thead>
+			<tbody>
+  			<% @users.each do |user| %>
+  				<tr>
+  					<td><%= link_to user.username, user, :title => "Show #{user.username}" %></td>
+  					<td><%= user.full_name %></td>
+  					<td><%= link_to user.email, "mailto:" + user.email %></td>
+  					<td><%= user.roles.collect(&:name).to_sentence(:last_word_connector => ' and ') %></td>
+  					<td><%= user.created_at.strftime("%B %d, %Y") %></td>
+  					<% if user.last_sign_in_at.nil? %>
+  					<td>Never</td>
+  					<% else %>
+  					<td><%= user.last_sign_in_at.strftime("%B %d, %Y at %I:%M%p") %></td>
+  					<% end %>
+  					<td><%= user.sign_in_count %></td>
+  					<!--<td><center><%= link_to image_tag("icons/user.png", :alt => "Show"), user, :title => "Show #{user.username}"%></center></td>
+  					<td><center><%= link_to image_tag("icons/user_edit.png", :alt => "Edit"), edit_user_path(user), :title => "Edit #{user.username}" %></center></td> -->
+  					<td><center><%= link_to image_tag("icons/user_delete.png", :alt => "Delete"), user, :method => :delete, :confirm => "Are you sure?", :title => "Delete #{user.username}" %></center></td>
+  				</tr>
+    		<% end %>
+     		<tfoot>
+				<tr>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+			</tfoot>
+  			</tbody>
+		</table>
+		</div>
+	</div>
+	<div id="tabs-3">
+		<div>
+		<table border="2" width="100%" id='users_timesheet' class='datatable'>
+			<thead>
+				<tr>
+					<th>Username</th>
+					<th>Full Name</th>
+					<th>Email</th>
+					<th>Timesheet</th>
+				</tr>
+			</thead>
+			<tbody>
+  			<% @users.each do |user| %>
+  				<tr>
+  					<td><%= user.username %></td>
+  					<td><%= user.full_name %></td>
+  					<td><%= link_to user.email, "mailto:" + user.email %></td>
+  					<td>
+  					<%= link_to "View Timesheet", timesheet_path + "/" + user.id.to_s %>
+  					<%= link_to image_tag("icons/time.png"), timesheet_path + "/" + user.id.to_s %></td>
+  				</tr>
+    		<% end %>
+     		<tfoot>
+				<tr>
+					<th></th>
+				</tr>
+			</tfoot>
+  			</tbody>
+		</table>
+		</div>
+	</div>
+	<br />
+</div>

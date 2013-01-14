@@ -1,0 +1,167 @@
+<%= javascript_include_tag 'jquery-1.6.2.min', 'jquery-ui-1.8.14.custom.min'%>
+<%= javascript_include_tag 'jquery.dataTables.min', 'datatable', 'jquery.dataTables.columnFilter', 'tabs'%>
+<%= javascript_include_tag 'highcharts', 'exporting' %>
+<%= javascript_include_tag 'tooltip' %>
+<%= stylesheet_link_tag 'demo_table', 'tabs-ui' %> 
+<%= stylesheet_link_tag 'timesheet'%>
+<%= stylesheet_link_tag 'tooltip' %>
+
+<div id="tabs">
+<ul>
+        <li><a href="#tabs-1">Project Hours</a></li>
+</ul>
+<div id="tabs-1">
+<div class="rightcol">
+<label for="from">From</label>
+<input type="text" id="from" name="from" size="15"/>
+<label for="to">to</label>
+<input type="text" id="to" name="to" size="15"/>
+</div>
+<br />
+<%= render 'projectselect'%>
+
+<br />
+
+<div id="container" style="height: 400px"></div>
+<%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
+<script>
+
+  var chart;
+  $(document).ready(function() { chart = new Highcharts.Chart(options);});
+onchange: $(function() {
+        var dates = $( "#from, #to" ).datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 1,
+            onSelect: function( selectedDate ) {
+
+              var option = this.id == "from" ? "minDate" : "maxDate",
+              instance = $( this ).data( "datepicker" ),
+                date = $.datepicker.parseDate(
+                  instance.settings.dateFormat || $.datepicker._defaults.dateFormat,
+                  selectedDate,
+                  instance.settings
+                );
+                dates.not( this ).datepicker( "option", option, date );
+
+                //Validate if both dates have been selected and make ajax request 
+                if ($(dates[0]).datepicker("getDate") &&
+                    $(dates[1]).datepicker("getDate")) {
+                      var from = $(dates[0]).datepicker("getDate");
+                      var to =   $(dates[1]).datepicker("getDate");
+                  $.ajax({
+                    type: 'POST',
+                    url: '<%= user_projects_time_entries_path(:user_id => current_user.id, :format => :json) %>',
+                    data: {
+                      "from": from.getFullYear() + "-" + ("0" + (from.getMonth()+1)).slice(-2) + "-" + ("0" + from.getDate()).slice(-2), 
+                      "to" : to.getFullYear() + "-" + ("0" + (to.getMonth()+1)).slice(-2) + "-" + ("0" + to.getDate()).slice(-2),
+                      "authenticity_token": AUTH_TOKEN
+                    },
+                       
+     				success: function(data) {
+                       //Once the request is made and have the new set of data, the old chart is removed. 
+                       while(chart.series.length > 0) {
+                           chart.series[0].remove();
+                       }
+                       
+                      // add each object from response as new series
+                      $.each(data, function(i, e) {
+                          chart.addSeries(e);
+                      })
+                    }
+                  });
+                }
+            }
+        });
+    });
+  
+var options = {
+    chart: {
+         renderTo: 'container',
+         defaultSeriesType: 'column'
+      },
+      title: {
+          text: '<%= current_user.username %>',
+      },
+      subtitle: {
+         text: 'Project Hours'
+      },
+      xAxis: {
+         categories: [
+            'Pre-Sales',
+            'Project',
+            'Fault Fixing',
+            'Support',
+            'Out Of Hours'
+         ]
+      },
+      yAxis: {
+         min: 0,
+         title: {
+            text: 'Hours'
+         }
+      },
+        plotOptions: {
+         series: {
+            stacking: 'normal'
+ 
+         }
+      },ip: {
+         formatter: function() {
+            return ''+
+               this.x +': '+ this.y +' Hours';
+         }
+      },
+      
+      credits: {
+         text: 'Dai.co.uk',
+         href: 'http://www.Dai.co.uk'
+      },
+      
+      exporting: {
+         enabled: true,
+         filename: 'Project-Hours'
+      },
+   
+      plotOptions: {
+         column: {
+            pointPadding: 0.3,
+            borderWidth: 0
+         }
+      },
+	  <!-- Store the TOTAL variables here -->
+	  <% presales = @data.reduce(0) { |sum, x| sum += x[:values][0] } %>
+	  <% project = @data.reduce(0) { |sum, x| sum += x[:values][1] } %>
+	  <% fault = @data.reduce(0) { |sum, x| sum += x[:values][2] } %>
+	  <% support = @data.reduce(0) { |sum, x| sum += x[:values][3] } %>
+	  <% outofhours = @data.reduce(0) { |sum, x| sum += x[:values][4] } %>
+	  <!-- END -->
+      series: [
+		<% @users_projects.each do |users_project| %>
+		<!-- Loop through all projects that the user has hours for -->
+				<% if !users_project.user.nil? && current_user.full_name == users_project.user.full_name %>
+					<% @data.each do |data| %>
+						<% if data[ :values ] == [0.0, 0.0, 0.0, 0.0, 0.0] %>
+						<% else %>
+							<% if data[ :name ] == users_project.project.project_name %>
+							{
+							name: '<%= data[ :name ] %>',
+							data: [<% data[ :values ].each do |value| %>
+									<%= value %>,
+								<% end %>]
+							},
+							<% end %>
+						<% end %>
+					<% end %>
+				<% else %>
+				<% end %>
+		<% end %>
+		{
+		name: 'Total',
+		data: [<%= presales %>, <%= project %>, <%= fault %>, <%= support %>, <%= outofhours %>]
+		}
+      ]
+};
+</script>
+</div>
+</div>

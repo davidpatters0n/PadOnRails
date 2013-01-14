@@ -1,0 +1,115 @@
+<fieldset style="width:700px;">
+	<b><center>Company</center></b>
+<p>
+  <b>Name:</b>
+  <%= @company.name %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @company.address %>
+</p>
+
+<p>
+  <b>Telephone:</b>
+  <%= @company.telephone %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= link_to @company.email, "mailto:" + @company.email %>
+</p>
+</fieldset>
+<%if @company.contacts.empty? %>
+<b>There are no contacts with this company, <%= link_to "Click here", new_contact_path%> to create one.</b><br/>
+<% else %>
+<fieldset style="width:700px;">
+ 	<b><center>Contacts</center></b>
+
+<div>
+<table border="2" width=800px id='comments' class='datatable'>
+	<thead>
+  <tr>
+    <th>Name</th>
+    <th>Position</th>
+    <th>Email</th>
+    <th>Telephone</th>
+    <th>Source</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  </thead>
+<tbody>
+<% @company.contacts.each do |contact| %>
+  <tr>
+    <td><%= link_to contact.name, contact %></td>
+    <td><%= contact.position %></td>
+    <td><%= link_to contact.email, "mailto:" + contact.email%></td>
+    <td><%= contact.telephone%></td>
+    <td><%= link_to contact.source, contact.source%></td>
+    <td><center><%= link_to image_tag("icons/user_edit.png", :alt => "Edit"), edit_contact_path(contact) %></center></td>
+    <td><center><%= link_to image_tag("icons/user_delete.png", :alt => "Delete"), contact, :confirm => 'Are you sure?', :method => :delete %></center></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+</div>
+</fieldset>
+<% end%>
+
+<%if @company.comments.empty? %>
+<br />
+<b>There are no comments, add one below.</b>
+<% else %>
+<b><%= pluralize(@company.comments.count, "Comment") %></b>
+<div>
+<table border="2" width=800px id='comments' class='datatable'>
+	<thead>
+  <tr>
+    <th>Name</th>
+    <th>Comment</th>
+    <th width=90px>Posted</th>
+    <th>Attachments</th>
+    <th><center>Delete?</center></th>
+  </tr>
+  </thead>
+<tbody>
+<% @company.comments.each do |comment| %>
+  <tr>
+    <td><%= comment.commenter %></td>
+    <td><%= comment.body %></td>
+    <td><%= time_ago_in_words(comment.created_at, "Comment") %> ago</td>
+    <% if comment.file.blank? %>
+    <td><b>None</b></td>
+    <% else %>
+    <td><%= link_to comment.file_identifier, comment.file_url %></td>
+    <% end %>
+    <td><center><%= link_to image_tag("collapse.png", :alt => "Delete", :height => "20px"), [comment.company, comment], :confirm => 'Are you sure?', :method => :delete %></center></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+</div>
+<% end %>
+
+
+<h2>Add a comment:</h2>
+<%= form_for([@company, @company.comments.build], :html => {:multipart => true}) do |f| %>
+  <div class="hidden">
+    Name:<br />
+    <%= f.text_field :commenter, :value => current_user.full_name, :readonly => "readonly" %>
+  </div>
+  <div class="field">
+    Comment:<br />
+    <%= f.text_area :body %>
+  </div>
+  <div class="field">
+  	<%= f.file_field :file %>  
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Edit', edit_company_path(@company) %> |
+<%= link_to 'Back', companies_path %>

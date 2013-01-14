@@ -1,0 +1,8 @@
+/* Remove all options from the project selector */
+$('#project_selector').empty();
+$('#project_selector').append( '<option value=""></option>' );
+
+/* Add an option for each project in the list */
+<% @projects.each do |project| %>
+$('#project_selector').append( '<option value="<%= project.id %>"><%= project.project_number %> <%= project.project_name %></option>' );
+<% end %>

@@ -1,0 +1,233 @@
+<%= javascript_include_tag 'application'%> 
+<%= javascript_include_tag 'timesheet'%>
+<%= stylesheet_link_tag 'timesheet'%>
+
+<!-- Javascript code to submit the hidden form -->
+<script>
+
+var missingStart = [];
+var missingEnd = [];
+
+<% @missing_weeks.each do |wc| %>
+  startDate = new Date( '<%= wc %>' );
+  endDate = new Date( startDate );
+  endDate.setDate( endDate.getDate() + 5 );
+  startDate.setHours( startDate.getHours() - 2 ); // avoid daylight savings problems
+  
+  missingStart.push( startDate );
+  missingEnd.push( endDate );
+<% end %>
+
+function effortMissing( date ) {
+    for( i = 0; i < missingStart.length; i++ )
+		if( date >= missingStart[i] && date <= missingEnd[i] )
+			return true;
+	return false;
+}
+
+$( function() {
+    // Get the date range to highlight
+    var startDate = new Date( '<%= @week_commencing %>' );    
+    var endDate = new Date( startDate );
+    endDate.setDate( endDate.getDate() + 5 );
+    startDate.setHours( startDate.getHours() - 2 ); // avoid daylight savings problems
+    var date = new Date('<%= @week_commencing %>')
+    
+    // Draw the date picker
+    $('.week-picker').datepicker( {
+      beforeShowDay: $.datepicker.noWeekends, 
+      showOtherMonths: true,
+      selectOtherMonths: true,
+      dateFormat: 'yy-mm-dd',
+      defaultDate: date,
+      gotoCurrent: true,
+      beforeShowDay: function( date ) {
+        var cssClass = '';
+        if(date >= startDate && date <= endDate)
+          cssClass = 'datepicker-current';
+        else if( effortMissing(date) )
+          cssClass = 'datepicker-warning';
+        return [true, cssClass];
+      },
+      onSelect: function(dateText, inst) {
+        $('.week-picker').find('td a').removeClass('ui-state-highlight');
+      	$(this).closest('tr').find('td a').addClass('ui-state-hover');
+        window.location.href = "/timesheet/<%= @user_id %>/" + dateText;
+      }
+    });
+    
+    // Remove today highlight
+    $('.week-picker').find('td a').removeClass('ui-state-highlight');
+  
+    // Setup mouseover highlighting to work across full weeks
+    $('.week-picker .ui-datepicker-calendar tr').live('mousemove', function() { $(this).find('td a').addClass('ui-state-hover'); });
+    $('.week-picker .ui-datepicker-calendar tr').live('mouseleave', function() { $(this).find('td a').removeClass('ui-state-hover'); });
+} );
+
+function admin(name, hour) {
+	var task = name;
+	var hours = hour;
+	var num = Number(hours);
+	
+	if (task == "Leave")
+	{
+		document.getElementById('effort_1').value = num;
+	}
+	else if (task == "Toil")
+	{
+		document.getElementById('effort_2').value = num;
+	}
+	else if (task == "Sick")
+	{
+		document.getElementById('effort_3').value = num;
+	}
+}
+
+
+
+/* Possible on unload function---but its looks like we dont need it
+$(window).bind('beforeunload', function() {
+	return 'are you sure?';
+});
+*/
+</script>
+
+<div class="all">
+<div class="leftcol">
+<%= link_to image_tag("myhours.png", :alt => "View my hours", :height => "30"), statistics_path %>
+<%= link_to image_tag("config.png", :alt => "Configure Projects", :height => "30"), selector_path %>
+    <!-- Week selector -->        
+    <div class="datepicker borderbox">
+        <b><center>Hours for Week commencing: <br /><span id="startDate"><%= @week_commencing %></span></center></b>
+    	<div class="week-picker"></div>
+    </div>
+    
+    <!-- Project selector -->
+
+    <div class="projectselector borderbox">
+    	<b>Project Selector</b>
+    	<% if current_user.id == @user_id %>
+    	<% end %>
+    	<select id="project_selector" onchange="selectProject()">
+    	   <option selected value=""></option>
+    	   <% @projects.each do |project| %>
+	    	   <% if project.project_name == 'ADMIN'%>
+	    	   <% else %>
+	    	       <option value="<%= project.id %>"><%= project.project_number %> <%= project.project_name %></option>
+	    	   <% end %>
+    	   <% end %>
+    	   <option value="more">[more ...]</option>
+    	</select>
+    
+    	<table border="2" width="100%" id='tasks' class='datatable'>
+    		<thead>
+    			<tr>
+    				<th>Task</th>
+    				<th></th>
+    			</tr>
+    		</thead>
+    		<tbody id='tasks_tb'></tbody>
+    	</table>
+    </div>
+    
+</div>
+
+<!-- List of recent tasks used -->
+<div class="rightcol">
+    <div class="recenttasks borderbox">
+        <b>Recent Tasks</b><%= @debugstr %>
+        <table border="2" width="100%" id='tasks' class='datatable fullwidthtable'>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id='recent_tasks_tb'>
+                <% @recent_tasks.each do |task| %>
+                    <tr>
+                        <td><%= task.project.project_number %> <%= task.project.project_name %> - <%= task.task_name %></td>
+                        <td><%= link_to image_tag('icons/add.png'), addtimesheettask_path( task.id, @user.id  ), :remote => true %></td> 
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- List of this week's effort records -->
+<div class="effortlist borderbox">
+	<b>Tasks this week</b>
+    <form name="frmMain" method="post">
+		<table border="1" class="fullwidthtable">
+			<thead>
+	  			<th>Task Name</th>
+	    		<th>Hours</th>
+	    		<th></th>
+	  		</thead>
+	  		<tbody id="task_list">
+	  		<% @efforts.each do |effort| %>
+		  		<% if effort.project_task.project.project_name == "ADMIN"%>
+		  			<% @skipIt = true %>
+				<% else %>
+			  		<tr>
+			  			<td><%= effort.project_task.project.project_number %> <%= effort.project_task.project.project_name %> - 
+			  		        <%= effort.project_task.task_name %>
+		                <td><%= text_field :effort, :hours, :name => 'effort_' + effort.project_task_id.to_s, :id => 'effort_' + effort.project_task_id.to_s,
+		                                   :value => "%d" % (effort.hours.nil? ? 0 : effort.hours), :size => 20 %>
+		                <td><%= link_to image_tag('icons/delete.png'), effort, :confirm => 'Are you sure?', :method => :delete %>
+			  	    </tr>
+		  	    <% end %>
+            <% end %>
+            <tr>
+                <td colspan="3" class="flip" id="flip" onmouseover="this.style.cursor='pointer'">Add Sick / TOIL / Leave</td>
+            </tr>
+            <tr class="toil th">
+                <td class="th">Category</td>
+                <td class="th">Days</td>
+                <td class="th"></td>
+            </tr>
+            <tr class="toil">
+                <td>Leave</td>
+                <td><input class="dayinput" type="text" id= 'effort_1' name="effort_1" size="20" value="<%= @leave %>"></td>
+                <td></td>
+            </tr>
+            <tr class="toil">
+                <td>TOIL</td>
+                <td><input class="dayinput" type="text" id='effort_2' name="effort_2" size="20" value="<%= @toil %>"></td>
+                <td></td>
+            </tr>
+            <tr class="toil">
+                <td>Sick</td>
+                <td><input class="dayinput" type="text" id='effort_3' name="effort_3"  size="20" value="<%= @sick %>"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>TOTAL</td>
+                <td><input id="total" class="total_low" type="text" value="0" disabled="" size="3"></td>
+                <td></td>
+            </tr>
+            </tbody>
+		</table>
+		<input type="hidden" name="hdnMaxLine" value="0">
+	</form>
+</div>   
+
+<!-- Hidden form for submitting timesheet entries -->
+<%= form_tag( "/submiteffort", :remote => true, :id => "effort_form" )  do %>
+<!-- <form action="/submiteffort" id="effort_form" method="post" data-remote="true"> -->
+    <input type="hidden" id="week_commencing" name="week_commencing" value="<%= @week_commencing %>">
+    <input type="hidden" id="task_id" name="task_id" value="x">
+    <input type="hidden" id="effort_hours" name="hours" value="0">
+    <input type="hidden" id="user_id" name="user_id" value="<%= @user_id %>">
+<% end %>
+
+<script>
+$(function() {
+	if (<%= @skipIt %> == true) 
+	{
+		$(".toil").show();
+	}
+	
+});
+</script>

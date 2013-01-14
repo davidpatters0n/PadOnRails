@@ -1,0 +1,22 @@
+<h1 class="head">Show Task</h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Project:</b>
+  <%= @project_task.project_id %>
+</p>
+
+<p>
+	<b>Task Type:</b>
+	<%= @project_task.taskType %>
+</p>
+
+<p>
+  <b>Task name:</b>
+  <%= @project_task.task_name %>
+</p>
+
+
+<%= link_to 'Edit', edit_project_task_path(@project_task) %> |
+<%= link_to 'Back', project_tasks_path %>

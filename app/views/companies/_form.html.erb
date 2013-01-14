@@ -1,0 +1,25 @@
+<%= javascript_include_tag 'jquery-1.6.2.min' %>
+<%= javascript_include_tag 'jquery-ui-1.8.14.custom.min' %>
+<%= javascript_include_tag 'jquery_ujs', 'application' %>
+<%= javascript_include_tag "rails.validations" %>  
+<%= form_for @company, :validate => true do |f|%>
+  <div class="field">
+    <b>Company Name:</b><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_field :address %>
+  </div>
+  <div class="field">
+    <%= f.label :telephone %><br />
+    <%= f.text_field :telephone %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="actions">
+  	<%= f.submit %>
+  </div>
+<% end %>

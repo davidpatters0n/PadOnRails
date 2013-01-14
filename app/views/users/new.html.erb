@@ -1,0 +1,39 @@
+<%= javascript_include_tag 'jquery','rails.validations' %>
+
+<h1 class="head"><title>Create a user</title></h1>
+<%= form_for @user, :validate => true,  do |f|%>
+<%= render 'shared/error_messages' %>
+  <div class="field">
+    <%= f.label :username %><br />
+    <%= f.text_field :username %>
+  </div>
+  <div class="field">
+    <%= f.label :full_name %><br />
+    <%= f.text_field :full_name %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email%>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation, "Confirmation" %><br />
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div style="width:150px"><b>Group</b>
+  	<table border="1" width="100%">
+	<% for role in @roles %>
+	<tr>
+		<td><%= role.name %></td>
+		<td><%= check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role) %></td>
+	<tr>
+	<% end %>
+	</table>
+  </div>
+  <div class="actions">
+    <%= f.submit "Create" %>
+  </div>
+<% end %>

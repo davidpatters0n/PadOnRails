@@ -1,0 +1,19 @@
+<a tabindex="0" href="#news-items" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="hierarchy"><span class="ui-icon ui-icon-triangle-1-s"></span>ipod-style menu</a>
+<div id="news-items" class="hidden">
+	<ul>
+		<li><a href="#">Recent</a>
+		</li>
+		<li><a href="#">All..</a>
+			<ul>
+				<% @projects.each do |project| %>
+					<li><a href="#"><%= project.id %><%= project.project_number %> <%= project.project_name %></a></li>
+				<% end %>
+			</ul>
+		</li>
+		<li>
+		</li>
+	</ul>
+</div>
+
+
+	

@@ -1,0 +1,125 @@
+<%= javascript_include_tag 'highcharts', 'exporting' %>
+
+<%= render 'projectselect' %>
+<div id="container" style="height: 400px"></div>
+<script>
+jQuery(function() {
+	// Create the chart	
+	
+	   $(function() {
+      //  var dates = $( "#from, #to" ).datepicker({
+         var dates = $( "input[name=min], input[name=max]" ).datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 1,
+            onSelect: function( selectedDate ) {
+    //var option = this.id == "input[name=min]" ? "minDate" : "maxDate",
+    var option = $(this).is("input[name=min]")    
+        
+    instance = $( this ).data( "datepicker" ),
+    date = $.datepicker.parseDate(
+         instance.settings.dateFormat || 
+         $.datepicker._defaults.dateFormat,
+         selectedDate, instance.settings );
+    dates.not( this ).datepicker( "option", option, date );
+
+    var startDate=$("input[name=min]")[0].value;
+	var endDate=$("input[name=max]")[0].value;
+    if (startDate!=="" && endDate!=="") {
+        startDate=startDate.split("/");
+        endDate=endDate.split("/");
+        chart.xAxis[0].setExtremes(
+            Date.UTC(startDate[2], startDate[0]-1, startDate[1]),
+            Date.UTC(endDate[2], endDate[0]-1, endDate[1])
+        );
+    }
+}
+        });
+    });
+	window.chart = new Highcharts.StockChart({
+	    chart: {
+	        renderTo: 'container',
+	    },
+	    	    
+	    title: {
+	        text: 'DAI'
+	    },
+		
+	    credits: {
+                text: 'Dai.co.uk',
+         	href: 'http://www.Dai.co.uk'
+      	    },
+
+	    yAxis: {
+	        title: {
+	            text: 'Hours'
+	        }
+	    },
+	        navigator: {
+            series: {
+                color: '#0098DB'    
+            }
+        },
+        
+           scrollbar: {
+            barBackgroundColor: '#0098DB',
+            barBorderRadius: 7,
+            barBorderWidth: 0,
+            buttonBackgroundColor: '#0098DB',
+            buttonBorderWidth: 0,
+            buttonArrowColor: 'yellow',
+            buttonBorderRadius: 7,
+            rifleColor: 'white',
+            trackBackgroundColor: 'white',
+            trackBorderWidth: 1,
+            trackBorderColor: 'silver',
+            trackBorderRadius: 7
+        },
+        
+	rangeSelector: {
+            buttonTheme: { // styles for the buttons
+                fill: 'none',
+                stroke: 'none',
+                style: {
+                    color: '#0098DB',
+                    fontWeight: 'none'
+                },
+                states: {
+                    hover: {
+                        fill: 'white'
+                    },
+                    select: {
+                        style: {
+                            color: '#0098DB'
+                        }
+                    }
+                }
+            },
+           
+           inputStyle: {
+                color: '#0098DB',
+                fontWeight: 'none'
+            },
+             labelStyle: {
+              color: 'black',
+                 fontWeight: 'none'
+       },
+            selected: 1
+        },
+	      
+	// The UTC() method returns the number of milliseconds in a date string since midnight of January 1, 1970, according to universal time.	
+	  series: [{
+                name: 'Hours',
+	       data: [<% @effort_array.each do |effort| %>
+            <% if Effort.where(:week_commencing => effort.week_commencing, :user_id => current_user.id).sum(:hours) == 0 %>
+            <% else %>
+ 		       [Date.UTC(<%= effort.week_commencing.strftime("%Y,%m-1,%d") %>),<%= Effort.where(:week_commencing => effort.week_commencing, :user_id => current_user.id).
+	   			sum(:hours)%>],<% end %><% end %>]
+	    }]
+	});
+});
+</script>
+
+
+
+

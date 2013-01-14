@@ -1,0 +1,18 @@
+<%if signed_in? %>
+<header>
+	<div id="top-menu">
+		<div id="account">
+        <ul>
+        <li>Logged in as: <b><%= current_user.username %></b>&nbsp;&nbsp;</li>
+        <li>Current IP: <b><%= current_user.current_sign_in_ip %></b>&nbsp;&nbsp;</li>
+        <li><%= link_to 'My Account', user_path(current_user),:class => "round" %></li>
+        <li><%= link_to 'Sign out', destroy_user_session_path, :class => "round"%></li>
+        </ul>
+		</div>
+		<ul>
+        <li><%= link_to 'Home', root_path, :class => "round" %></li>
+		</ul>
+	</div>
+</header>
+<% else %>
+<% end %>
